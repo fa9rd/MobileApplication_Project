@@ -36,11 +36,6 @@ class _SignUPScreenState extends State<SignUPScreen> {
                           margin: EdgeInsets.all(25),
                           child: Column(
                             children: [
-
-
-
-
-
                               // TabBar Code
                               Row(children: [
                                 Container(
@@ -84,7 +79,8 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                                   ? Container(
                                                       height: 2.8,
                                                       width: width / 6,
-                                                      color: Color.fromRGBO(143, 148, 251, 5),
+                                                      color: Color.fromRGBO(
+                                                          143, 148, 251, 5),
                                                     )
                                                   : Container(),
                                             ],
@@ -95,10 +91,6 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                   ),
                                 ),
                                 Expanded(child: Container()),
-
-
-
-
 
                                 // Profile
                                 RightAnime(
@@ -126,17 +118,9 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                 ),
                               ]),
 
-
-
-
-
                               SizedBox(
                                 height: 30,
                               ),
-
-
-
-
 
                               // Top Text
                               Container(
@@ -150,15 +134,18 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                    Text(
+                                      Text(
                                         "WELCOME ",
                                         style: TextStyle(
-                                          color: Color.fromRGBO(143, 148, 251, 6),
+                                          color:
+                                              Color.fromRGBO(143, 148, 251, 6),
                                           fontSize: 40,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      SizedBox(height: 20,),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
                                       Text(
                                         "Enter your informations below or \nlogin with a social account",
                                         style: TextStyle(
@@ -171,17 +158,9 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                 ),
                               ),
 
-
-
-
-
                               SizedBox(
                                 height: height / 30,
                               ),
-
-
-
-
 
                               // TextFiled
                               Container(
@@ -228,16 +207,9 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                                 labelText: "Password again"),
                                       ),
 
-
-
-
-
                                       SizedBox(
                                         height: 5,
                                       ),
-
-
-
 
                                       // FaceBook and Google ICon
                                       TopAnime(
@@ -245,23 +217,22 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                         11,
                                         child: Row(
                                           children: [
-                                                IconButton(
-                                                  icon: FaIcon(
-                                                    FontAwesomeIcons.googlePlusG,
-                                                    size: 35,
-                                                  ),
-                                                  onPressed: () {},
-                                                ),
-                                                SizedBox(
-                                                  width: 15,
-                                                ),
-                                                Text(
-                                                  'Login with Google',
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15
-                                                  ),
-                                                  )
+                                            IconButton(
+                                              icon: FaIcon(
+                                                FontAwesomeIcons.googlePlusG,
+                                                size: 35,
+                                              ),
+                                              onPressed: () {},
+                                            ),
+                                            SizedBox(
+                                              width: 15,
+                                            ),
+                                            Text(
+                                              'Login with Google',
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15),
+                                            )
                                           ],
                                         ),
                                       )
@@ -272,9 +243,6 @@ class _SignUPScreenState extends State<SignUPScreen> {
                             ],
                           ),
                         ),
-
-
-
 
                         // Bottom
                         i == 1
@@ -291,8 +259,8 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                         padding: const EdgeInsets.only(top: 43),
                                         child: Container(
                                             height: height / 9,
-                                            color:
-                                                  Color.fromRGBO(143, 148, 251, 5)),
+                                            color: Color.fromRGBO(
+                                                143, 148, 251, 5)),
                                       ),
                                       Positioned(
                                         left: 280,

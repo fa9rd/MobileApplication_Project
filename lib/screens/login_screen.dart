@@ -20,7 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final feature = ["Login", "Sign Up"];
 
   int i = 0;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -42,98 +41,92 @@ class _LoginScreenState extends State<LoginScreen> {
                               //background(),
 
                               Row(
-                                // TabBar Code
-                                children: [
-                                Container(
-                                  height: height / 19,
-                                  width: width / 2,
-                                  child: TopAnime(
-                                    2,
-                                    5,
-                                    child: ListView.builder(
-                                      itemCount: feature.length,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              i = index;
-                                            });
-                                          },
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
+                                  // TabBar Code
+                                  children: [
+                                    Container(
+                                      height: height / 19,
+                                      width: width / 2,
+                                      child: TopAnime(
+                                        2,
+                                        5,
+                                        child: ListView.builder(
+                                          itemCount: feature.length,
+                                          scrollDirection: Axis.horizontal,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  i = index;
+                                                });
+                                              },
+                                              child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
                                                         horizontal: 20),
-                                                child: Text(
-                                                  feature[index],
-                                                  style: TextStyle(
-                                                    color: i == index
-                                                        ? Colors.black
-                                                        : Colors.grey,
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
+                                                    child: Text(
+                                                      feature[index],
+                                                      style: TextStyle(
+                                                        color: i == index
+                                                            ? Colors.black
+                                                            : Colors.grey,
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
                                                   ),
+                                                  SizedBox(
+                                                    height: 8,
+                                                  ),
+                                                  i == index
+                                                      ? Container(
+                                                          height: 2.8,
+                                                          width: width / 6,
+                                                          color: Color.fromRGBO(
+                                                              143, 148, 251, 5),
+                                                        )
+                                                      : Container(),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(child: Container()),
+
+                                    // Profile
+                                    RightAnime(
+                                      1,
+                                      15,
+                                      curve: Curves.easeInOutQuad,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Container(
+                                          width: 60,
+                                          height: 60,
+                                          color: Colors.red[400],
+                                          child: i == 0
+                                              ? Image(
+                                                  image: NetworkImage(
+                                                      "https://i.pinimg.com/564x/5d/a3/d2/5da3d22d08e353184ca357db7800e9f5.jpg"),
+                                                )
+                                              : Icon(
+                                                  Icons.account_circle_outlined,
+                                                  color: Colors.white,
+                                                  size: 40,
                                                 ),
-                                              ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
-                                              i == index
-                                                  ? Container(
-                                                      height: 2.8,
-                                                      width: width / 6,
-                                                      color: Color.fromRGBO(143, 148, 251, 5),
-                                                    )
-                                                  : Container(),
-                                            
-                                            
-                                            ],
-                                          ),
-                                        );
-                                      },
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Expanded(child: Container()),
-
-
-                                // Profile
-                                RightAnime(
-                                  1,
-                                  15,
-                                  curve: Curves.easeInOutQuad,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Container(
-                                      width: 60,
-                                      height: 60,
-                                      color: Colors.red[400],
-                                      child: i == 0
-                                          ? Image(
-                                              image: NetworkImage(
-                                                  "https://i.pinimg.com/564x/5d/a3/d2/5da3d22d08e353184ca357db7800e9f5.jpg"),
-                                            )
-                                          : Icon(
-                                              Icons.account_circle_outlined,
-                                              color: Colors.white,
-                                              size: 40,
-                                            ),
-                                    ),
-                                  ),
-                                ),
-                              ]
-                              ),
-
+                                  ]),
 
                               SizedBox(
                                 height: 50,
                               ),
-                              
-
-
 
                               // Top Text
                               Container(
@@ -147,11 +140,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      
                                       Text(
                                         "WELCOME BACK",
                                         style: TextStyle(
-                                          color: Color.fromRGBO(143, 148, 251, 6),
+                                          color:
+                                              Color.fromRGBO(143, 148, 251, 6),
                                           fontSize: 40,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -161,14 +154,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
 
-
-
                               SizedBox(
                                 height: height / 14,
                               ),
-
-
-
 
                               // TextFiled
                               Column(
@@ -211,12 +199,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           labelText:
                                                               "Password")),
 
-
                                           SizedBox(
                                             height: 5,
                                           ),
-
-
 
                                           // FaceBook and Google ICon
                                           TopAnime(
@@ -226,7 +211,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                               children: [
                                                 IconButton(
                                                   icon: FaIcon(
-                                                    FontAwesomeIcons.googlePlusG,
+                                                    FontAwesomeIcons
+                                                        .googlePlusG,
                                                     size: 35,
                                                   ),
                                                   onPressed: () {},
@@ -237,11 +223,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 Text(
                                                   'Login with Google',
                                                   style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15
-                                                  ),
-                                                  )
-                                                
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 15),
+                                                )
                                               ],
                                             ),
                                           )
@@ -255,15 +240,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
 
-
-
-
-
-
-
-
-
-                        // Bottom 
+                        // Bottom
                         i == 0
                             ? TopAnime(
                                 2,
@@ -288,8 +265,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                         padding: const EdgeInsets.only(top: 43),
                                         child: Container(
                                             height: height / 9,
-                                            color:
-                                                Color.fromRGBO(143, 148, 251, 5)),
+                                            color: Color.fromRGBO(
+                                                143, 148, 251, 5)),
                                       ),
                                       Positioned(
                                         left: 280,
