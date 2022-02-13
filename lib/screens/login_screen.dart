@@ -6,6 +6,7 @@ import '../animation/animations.dart';
 import '../screens/signup_screen.dart';
 import '../background.dart';
 import 'dashboard.dart';
+import 'sv_dashboard.dart';
 
 import '../constant.dart';
 
@@ -277,7 +278,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        Dashboard()));
+                                                        SvDashboard()));
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(

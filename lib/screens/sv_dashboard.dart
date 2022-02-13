@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:project2/screens/students.dart';
 import './Meeting.dart';
 
-class Dashboard extends StatefulWidget {
-  const Dashboard({Key key}) : super(key: key);
+class SvDashboard extends StatefulWidget {
+  const SvDashboard({ Key key }) : super(key: key);
 
   @override
-  _DashboardState createState() => _DashboardState();
+  _SvDashboardState createState() => _SvDashboardState();
 }
 
-class _DashboardState extends State<Dashboard> {
+class _SvDashboardState extends State<SvDashboard> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -16,8 +17,9 @@ class _DashboardState extends State<Dashboard> {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
           backgroundColor: Color(0xfffdfdfdf),
+        
       appBar:  AppBar(
-        title: Text("Student 1"),
+        title: Text("Dashboard"),
         backgroundColor: Color.fromRGBO(143, 148, 251, 5),
         centerTitle: true,
       ),
@@ -27,23 +29,45 @@ class _DashboardState extends State<Dashboard> {
                 Container(
                   margin: EdgeInsets.all(25),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                     
-                      Container(
-                        //color: Color.fromRGBO(143, 148, 251, 5),
-                        decoration: BoxDecoration(
+                      
+                    ]
+                  )
+                ),
+                 Container(
+                  //margin: EdgeInsets.all(5),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Students: ",
+                        style: TextStyle(
+                          color: Colors.black54,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ]
+                  )
+                ),
+                Container(
+                  decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(10.0),
                               bottomRight: Radius.circular(10.0),
                               topLeft: Radius.circular(10.0),
                               bottomLeft: Radius.circular(10.0),
                             ),
-                            color: Color.fromRGBO(143, 148, 251, 5)),
-                        child: Card(
-                          elevation: 8,
-                          margin: EdgeInsets.all(10),
-                          child: Container(
+                            color: Colors.grey),
+                            child: Card(
+
+                              elevation: 8,
+                              margin: EdgeInsets.all(10),
+                              child: Container(
                             height: 100,
                             color: Colors.white,
                             child: Row(
@@ -53,7 +77,7 @@ class _DashboardState extends State<Dashboard> {
                                     padding: EdgeInsets.all(1),
                                     child: Expanded(
                                       child: Image.asset(
-                                          "assets/images/meeting.png"),
+                                          "assets/images/student.png"),
                                       flex: 2,
                                     ),
                                   ),
@@ -66,8 +90,8 @@ class _DashboardState extends State<Dashboard> {
                                         Expanded(
                                           flex: 5,
                                           child: ListTile(
-                                            title: Text("Meeting 1"),
-                                            subtitle: Text("01-02-2021"),
+                                            title: Text("Student 1"),
+                                            //subtitle: Text("01-02-2021"),
                                           ),
                                         ),
                                         Expanded(
@@ -78,7 +102,7 @@ class _DashboardState extends State<Dashboard> {
                                             children: [
                                               TextButton(
                                                 child: Text(
-                                                  "View",
+                                                  "Details",
                                                   style: TextStyle(
                                                       color: Colors.purple[700],
                                                       fontSize: 16),
@@ -88,22 +112,11 @@ class _DashboardState extends State<Dashboard> {
                                                     context,
                                                     MaterialPageRoute(
                                                         builder: (context) =>
-                                                            const meeting()),
+                                                            const Student()),
                                                   );
                                                 },
                                               ),
-                                              SizedBox(
-                                                width: 8,
-                                              ),
-                                              TextButton(
-                                                child: Text(
-                                                  "ayo",
-                                                  style: TextStyle(
-                                                      color: Colors.purple[700],
-                                                      fontSize: 16),
-                                                ),
-                                                onPressed: () {},
-                                              ),
+                                              
                                               SizedBox(
                                                 width: 8,
                                               )
@@ -117,12 +130,8 @@ class _DashboardState extends State<Dashboard> {
                                 ),
                               ],
                             ),
-                          ),
-                          
-                        ),
-                      ),
-                    ],
-                  ),
+                          )
+                            ),
                 ),
               ],
             ),

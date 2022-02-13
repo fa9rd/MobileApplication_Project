@@ -146,13 +146,7 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                       SizedBox(
                                         height: 20,
                                       ),
-                                      Text(
-                                        "Enter your informations below or \nlogin with a social account",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
+                                      
                                     ],
                                   ),
                                 ),
@@ -175,6 +169,17 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       TextField(
+                                          // readOnly: true, // * Just for Debug
+                                          cursorColor: Colors.black,
+                                          style: TextStyle(color: Colors.black),
+                                          showCursor: true,
+                                          //cursorColor: mainColor,
+                                          decoration: kTextFiledInputDecoration
+                                              .copyWith(labelText: "Name")),
+                                      SizedBox(
+                                        height: 25,
+                                      ),
+                                      TextField(
                                         // readOnly: true, // * Just for Debug
                                         cursorColor: Colors.black,
                                         style: TextStyle(color: Colors.black),
@@ -185,6 +190,7 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                       SizedBox(
                                         height: 25,
                                       ),
+                                      
                                       TextField(
                                           // readOnly: true, // * Just for Debug
                                           cursorColor: Colors.black,
@@ -210,6 +216,8 @@ class _SignUPScreenState extends State<SignUPScreen> {
                                       SizedBox(
                                         height: 5,
                                       ),
+
+                                      DropDown(),
 
                                       // FaceBook and Google ICon
                                       TopAnime(
@@ -297,6 +305,62 @@ class _SignUPScreenState extends State<SignUPScreen> {
                     ),
                   )
                 : LoginScreen()),
+      ),
+    );
+  }
+}
+
+
+class DropDown extends StatefulWidget {
+  const DropDown({ Key key }) : super(key: key);
+
+  @override
+  _DropDownState createState() => _DropDownState();
+}
+
+class _DropDownState extends State<DropDown> {
+  final items = ['Male','Female','Rather not to say'];
+  String valueChoose;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Container(
+          padding: EdgeInsets.only(left:16, right:16),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey, width: 1),
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: DropdownButton(
+            hint: Text('Gender'),
+            dropdownColor: Colors.white,
+            icon: Icon(Icons.arrow_drop_down),
+            iconSize: 20,
+            isExpanded: true,
+            underline: SizedBox(),
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              
+            ),
+            value: valueChoose,
+            onChanged: (newValue) {
+              setState(() {
+                valueChoose = newValue;
+              }); 
+            },
+            items: items.map((valueItem){
+              return DropdownMenuItem(
+                value: valueItem,
+                child: Text(valueItem),
+                );
+            }).toList(),
+
+
+             ),
+        ),
       ),
     );
   }
