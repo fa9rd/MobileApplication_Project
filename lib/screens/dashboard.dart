@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import './Meeting.dart';
 
@@ -16,11 +17,21 @@ class _DashboardState extends State<Dashboard> {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
           backgroundColor: Color(0xfffdfdfdf),
-      appBar:  AppBar(
-        title: Text("Student 1"),
-        backgroundColor: Color.fromRGBO(143, 148, 251, 5),
-        centerTitle: true,
-      ),
+          appBar: AppBar(
+            title: Text("Student 1"),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.logout),
+                tooltip: 'Logout',
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                },
+              ),
+
+            ],
+            backgroundColor: Color.fromRGBO(143, 148, 251, 5),
+            centerTitle: true,
+          ),
           body: SingleChildScrollView(
             child: Column(
               children: [
@@ -29,7 +40,6 @@ class _DashboardState extends State<Dashboard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                     
                       Container(
                         //color: Color.fromRGBO(143, 148, 251, 5),
                         decoration: BoxDecoration(
@@ -118,7 +128,6 @@ class _DashboardState extends State<Dashboard> {
                               ],
                             ),
                           ),
-                          
                         ),
                       ),
                     ],

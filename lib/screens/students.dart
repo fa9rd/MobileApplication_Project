@@ -17,6 +17,24 @@ class _StudentState extends State<Student> {
        backgroundColor: Color(0xfffdfdfdf),
       appBar:  AppBar(
         title: Text("Student 1"),
+        actions: [
+          GestureDetector(
+            onTap: (){},
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color(0xffEB5757),
+                  borderRadius:
+                  BorderRadius.circular(20)),
+              width: 40,
+              height: 40,
+              child: Icon(
+                Icons.logout,
+                size: 25,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
         backgroundColor: Color.fromRGBO(143, 148, 251, 5),
         centerTitle: true,
       ),
