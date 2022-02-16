@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:project2/screens/CheckUser.dart';
 import 'package:project2/services/database.dart';
 import 'package:project2/widgets/field.dart';
 import 'package:project2/widgets/signup_form.dart';
@@ -19,7 +20,6 @@ class CompleteSignUp extends StatefulWidget {
 class _CompleteSignUpState extends State<CompleteSignUp> {
   final _formKey = GlobalKey<FormState>();
   final _DropDownStateKey = DropDown();
-  TextEditingController _userFullName = TextEditingController();
   TextEditingController _userPhone = TextEditingController();
   TextEditingController _userWechat = TextEditingController();
 
@@ -76,7 +76,7 @@ class _CompleteSignUpState extends State<CompleteSignUp> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Dashboard()),
+                                      builder: (context) => CheckUser()),
                           );
                         }
                       },

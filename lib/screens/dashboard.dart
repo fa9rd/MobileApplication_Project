@@ -31,15 +31,6 @@ class _DashboardState extends State<Dashboard> {
                 },
               ),
 
-              IconButton(
-                icon: const Icon(Icons.slideshow),
-                tooltip: 'Show',
-                onPressed: () {
-                  showDialog(
-                  context: context,
-                  builder: (BuildContext context) => CompleteSignUp());
-                },
-              ),
 
             ],
             backgroundColor: Color.fromRGBO(143, 148, 251, 5),
@@ -53,7 +44,6 @@ class _DashboardState extends State<Dashboard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-
                       Container(
                         //color: Color.fromRGBO(143, 148, 251, 5),
                         decoration: BoxDecoration(

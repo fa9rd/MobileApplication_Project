@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project2/screens/students.dart';
 import './Meeting.dart';
 
@@ -21,6 +23,18 @@ class _SvDashboardState extends State<SvDashboard> {
             title: Text("Dashboard"),
             backgroundColor: Color.fromRGBO(143, 148, 251, 5),
             centerTitle: true,
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.logout),
+                tooltip: 'Logout',
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  GoogleSignIn().signOut();
+                },
+              ),
+
+
+            ],
           ),
           body: SingleChildScrollView(
             child: Column(
