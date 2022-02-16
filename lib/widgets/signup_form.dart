@@ -87,7 +87,7 @@ class _SignUpFormState extends State<SignUpForm> {
                               // TabBar Code
                               Row(children: [
                                 Container(
-                                  height: height / 17,
+                                  height: height / 15,
                                   width: width / 2,
                                   child: TopAnime(
                                     2,
@@ -185,8 +185,9 @@ class _SignUpFormState extends State<SignUpForm> {
                                       Text(
                                         "WELCOME ",
                                         style: TextStyle(
+
                                           color:
-                                              Color.fromRGBO(143, 148, 251, 6),
+                                          Color.fromRGBO(143, 148, 251, 6),
                                           fontSize: 40,
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -206,7 +207,7 @@ class _SignUpFormState extends State<SignUpForm> {
                               // TextFiled
                               Container(
                                 width: width / 1.2,
-                                height: height / 2.5,
+                                height: height / 2,
                                 child: TopAnime(
                                   1,
                                   16,
@@ -290,30 +291,62 @@ class _SignUpFormState extends State<SignUpForm> {
                                         TopAnime(
                                           1,
                                           10,
-                                          child: Row(
-                                            children: [
-                                              IconButton(
-                                                icon: FaIcon(
-                                                  FontAwesomeIcons.googlePlusG,
-                                                  size: 35,
-                                                ),
-                                                onPressed:(){
-                                                  DatabaseService().signInWithGoogle();
-                                                },
+                                          child: InkWell(
+                                            onTap: (){},
+                                            child: Row(
+                                              children: [
+                                                IconButton(
+                                                  icon: FaIcon(
+                                                    FontAwesomeIcons.googlePlusG,
+                                                    size: 35,
+                                                  ),
+                                                  onPressed:(){
+                                                    DatabaseService().signInWithGoogle();
+                                                  },
 
-                                              ),
-                                              SizedBox(
-                                                width: 15,
-                                              ),
-                                              Text(
-                                                'Login with Google',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 15),
-                                              )
-                                            ],
+                                                ),
+                                                SizedBox(
+                                                  width: 15,
+                                                ),
+                                                Text(
+                                                  'Login with Google',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: 15),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        )
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.only(right: 15),
+                                              child: GestureDetector(
+                                                onTap: _trySubmit,
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Color.fromRGBO(143, 148, 251, 6),
+                                                        borderRadius:
+                                                        BorderRadius.circular(20)),
+                                                    width: 150,
+                                                    height: height / 15,
+                                                    child: Center(
+                                                      child: Text(
+                                                        "Sign up",
+                                                        style: TextStyle(
+                                                          fontSize: 20,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -323,49 +356,6 @@ class _SignUpFormState extends State<SignUpForm> {
                           ),
                         ),
 
-                        // Bottom
-                        i == 1
-                            ? TopAnime(
-                                2,
-                                29,
-                                curve: Curves.fastOutSlowIn,
-                                child: Container(
-                                  height: height / 6,
-                                  // color: Colors.red,
-                                  child: Stack(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 43),
-                                        child: Container(
-                                            height: height / 9,
-                                            color: Color.fromRGBO(
-                                                143, 148, 251, 5)),
-                                      ),
-                                      Positioned(
-                                        left: 280,
-                                        top: 10,
-                                        child: GestureDetector(
-                                          onTap: _trySubmit,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                color: Color(0xffEB5757),
-                                                borderRadius:
-                                                    BorderRadius.circular(20)),
-                                            width: width / 4,
-                                            height: height / 12,
-                                            child: Icon(
-                                              Icons.arrow_forward,
-                                              size: 35,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : LoginScreen()
                       ],
                     ),
                   )

@@ -53,6 +53,7 @@ class _DashboardState extends State<Dashboard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+
                       Container(
                         //color: Color.fromRGBO(143, 148, 251, 5),
                         decoration: BoxDecoration(

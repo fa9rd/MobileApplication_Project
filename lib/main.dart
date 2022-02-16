@@ -8,6 +8,7 @@ import 'package:project2/services/database.dart';
 import 'screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import './background.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +35,8 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.light,
         primaryColor: Colors.purple[700],
         backgroundColor: Color(0xfffdfdfdf),
+        focusColor: Colors.amber,
+
 
         // Define the default font family.
         fontFamily: 'Georgia',
