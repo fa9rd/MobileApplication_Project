@@ -56,7 +56,7 @@ class _meetingState extends State<meeting> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Meeting 1"),
-        backgroundColor: Color.fromRGBO(143, 148, 251, 5),
+        backgroundColor: Theme.of(context).backgroundColor,
         centerTitle: true,
       ),
       body: CommentBox(

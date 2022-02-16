@@ -18,7 +18,7 @@ class _DashboardState extends State<Dashboard> {
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
-          backgroundColor: Color(0xfffdfdfdf),
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text("Student 1"),
             actions: <Widget>[
@@ -33,7 +33,7 @@ class _DashboardState extends State<Dashboard> {
 
 
             ],
-            backgroundColor: Color.fromRGBO(143, 148, 251, 5),
+            backgroundColor: Theme.of(context).primaryColor,
             centerTitle: true,
           ),
           body: SingleChildScrollView(
@@ -53,7 +53,8 @@ class _DashboardState extends State<Dashboard> {
                               topLeft: Radius.circular(10.0),
                               bottomLeft: Radius.circular(10.0),
                             ),
-                            color: Color.fromRGBO(143, 148, 251, 5)),
+                            color: Theme.of(context).primaryColor
+                        ),
                         child: Card(
                           elevation: 8,
                           margin: EdgeInsets.all(10),
@@ -94,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
                                                 child: Text(
                                                   "View",
                                                   style: TextStyle(
-                                                      color: Colors.purple[700],
+                                                      color: Theme.of(context).primaryColor,
                                                       fontSize: 16),
                                                 ),
                                                 onPressed: () {
@@ -113,7 +114,7 @@ class _DashboardState extends State<Dashboard> {
                                                 child: Text(
                                                   "ayo",
                                                   style: TextStyle(
-                                                      color: Colors.purple[700],
+                                                      color: Theme.of(context).primaryColor,
                                                       fontSize: 16),
                                                 ),
                                                 onPressed: () {},

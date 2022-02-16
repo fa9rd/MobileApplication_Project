@@ -18,10 +18,10 @@ class _SvDashboardState extends State<SvDashboard> {
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: Scaffold(
-          backgroundColor: Color(0xfffdfdfdf),
+          backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
             title: Text("Dashboard"),
-            backgroundColor: Color.fromRGBO(143, 148, 251, 5),
+            backgroundColor: Theme.of(context).primaryColor,
             centerTitle: true,
             actions: <Widget>[
               IconButton(
@@ -62,14 +62,15 @@ class _SvDashboardState extends State<SvDashboard> {
                       ),
                     ])),
                 Container(
+                  margin: EdgeInsets.all(25),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10.0),
-                        bottomRight: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                        bottomLeft: Radius.circular(10.0),
+                        topRight: Radius.circular(5.0),
+                        bottomRight: Radius.circular(5.0),
+                        topLeft: Radius.circular(5.0),
+                        bottomLeft: Radius.circular(5.0),
                       ),
-                      color: Colors.grey),
+                      color: Theme.of(context).primaryColor),
                   child: Card(
                       elevation: 8,
                       margin: EdgeInsets.all(10),
@@ -110,7 +111,7 @@ class _SvDashboardState extends State<SvDashboard> {
                                             child: Text(
                                               "Details",
                                               style: TextStyle(
-                                                  color: Colors.purple[700],
+                                                  color: Theme.of(context).primaryColor,
                                                   fontSize: 16),
                                             ),
                                             onPressed: () {
