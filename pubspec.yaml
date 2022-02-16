@@ -29,6 +29,7 @@ dependencies:
   comment_box: ^0.0.17
   cloud_firestore: ^3.1.8
   firebase_auth: ^3.3.7
+  google_sign_in: ^4.4.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

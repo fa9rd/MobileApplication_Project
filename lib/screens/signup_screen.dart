@@ -15,30 +15,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
   var _isLoading = false;
 
   void _submitSignUpForm(
-      String name,
-      String email,
-      String phone,
-      String wechat,
-      String password,
-      ) async {
+    String name,
+    String email,
+    String phone,
+    String wechat,
+    String password,
+    String userType,
+  ) async {
     UserCredential userCredential;
     try {
       setState(() {
         _isLoading = true;
       });
-        userCredential = await _auth.createUserWithEmailAndPassword(
-            email: email, password: password);
+      userCredential = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
 
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userCredential.user.uid)
-            .set({
-          'name': name,
-          'email': email,
-          'phone':phone,
-          'wechat':wechat
-        });
-
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user.uid)
+          .set(
+              {'name': name, 'email': email, 'phone': phone, 'wechat': wechat , 'userType':userType});
     } on PlatformException catch (err) {
       var massage = " Error please check your credentials !";
 
@@ -60,11 +56,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
-        body: SignUpForm(
+    return SignUpForm(
           _submitSignUpForm,
           _isLoading,
-        ));
+        );
   }
 }

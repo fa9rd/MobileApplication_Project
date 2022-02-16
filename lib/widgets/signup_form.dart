@@ -1,12 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project2/models/user.dart';
+import 'package:project2/screens/complete_signup.dart';
+import 'package:project2/services/database.dart';
 import 'package:project2/widgets/field.dart';
 import '../animation/animations.dart';
 import '../screens/login_screen.dart';
-
-import '../constant.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project2/models/user.dart' as UserModel;
 
 class SignUpForm extends StatefulWidget {
   SignUpForm(this.submitFn, this.isLoading);
@@ -18,6 +23,7 @@ class SignUpForm extends StatefulWidget {
     String phone,
     String wechat,
     String password,
+    String userType
   ) submitFn;
 
   @override
@@ -26,6 +32,7 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _SignUpFormKey = GlobalKey<FormState>();
+  final _DropDownStateKey = GlobalKey<_DropDownState>();
   final feature = ["Login", "Sign Up"];
   int i = 1;
   TextEditingController _userFullName = TextEditingController();
@@ -34,7 +41,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextEditingController _userWechat = TextEditingController();
   TextEditingController _userPassword = TextEditingController();
   TextEditingController _userPasswordConfirmation = TextEditingController();
-  TextEditingController _usertype = TextEditingController();
+
 
   void _trySubmit() {
     final isValid = _SignUpFormKey.currentState.validate();
@@ -48,13 +55,17 @@ class _SignUpFormState extends State<SignUpForm> {
           _userEmail.text.toString(),
           _userPhone.text.toString(),
           _userWechat.text.toString(),
-          _userPassword.text.toString());}
+          _userPassword.text.toString(),
+          _DropDownStateKey.currentState.valueChoose.toString());
+      }
       else{
         print("passwords doesnot match");
       }
-      //Used to send auth request
+      //Used to send signup request
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -274,7 +285,7 @@ class _SignUpFormState extends State<SignUpForm> {
                                         SizedBox(
                                           height: 5,
                                         ),
-                                        DropDown(),
+                                        DropDown(key: _DropDownStateKey),
                                         // FaceBook and Google ICon
                                         TopAnime(
                                           1,
@@ -286,7 +297,10 @@ class _SignUpFormState extends State<SignUpForm> {
                                                   FontAwesomeIcons.googlePlusG,
                                                   size: 35,
                                                 ),
-                                                onPressed: () {},
+                                                onPressed:(){
+                                                  DatabaseService().signInWithGoogle();
+                                                },
+
                                               ),
                                               SizedBox(
                                                 width: 15,
@@ -362,16 +376,19 @@ class _SignUpFormState extends State<SignUpForm> {
 }
 
 class DropDown extends StatefulWidget {
-  const DropDown({Key key}) : super(key: key);
+  String choice;
+  DropDown({Key key,}) : super(key: key);
 
+
+     get()=> _DropDownState(this.choice).valueChoose.toString();
   @override
-  _DropDownState createState() => _DropDownState();
+  _DropDownState createState() => _DropDownState(choice);
 }
 
 class _DropDownState extends State<DropDown> {
   final items = ['Supervisor', 'Co-Supervisor', 'Student'];
   String valueChoose;
-
+  _DropDownState(this.valueChoose);
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -383,29 +400,30 @@ class _DropDownState extends State<DropDown> {
             border: Border.all(color: Colors.grey, width: 1),
             borderRadius: BorderRadius.circular(15),
           ),
-          child: DropdownButton(
+          child: DropdownButtonFormField(
             hint: Text('User Type'),
             dropdownColor: Colors.white,
             icon: Icon(Icons.arrow_drop_down),
             iconSize: 20,
             isExpanded: true,
-            underline: SizedBox(),
             style: TextStyle(
               color: Colors.black,
               fontSize: 16,
             ),
-            value: valueChoose,
+            value: valueChoose ,
             onChanged: (newValue) {
-              setState(() {
-                valueChoose = newValue;
-              });
+              setState(() => valueChoose = newValue);
             },
-            items: items.map((valueItem) {
+              onSaved:(value){
+              widget.choice = value.toString();
+              },
+              items: items.map((valueItem) {
               return DropdownMenuItem(
                 value: valueItem,
                 child: Text(valueItem),
               );
             }).toList(),
+
           ),
         ),
       ),

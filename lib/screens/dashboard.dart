@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import './Meeting.dart';
+import 'complete_signup.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key key}) : super(key: key);
@@ -25,6 +27,17 @@ class _DashboardState extends State<Dashboard> {
                 tooltip: 'Logout',
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
+                  GoogleSignIn().signOut();
+                },
+              ),
+
+              IconButton(
+                icon: const Icon(Icons.slideshow),
+                tooltip: 'Show',
+                onPressed: () {
+                  showDialog(
+                  context: context,
+                  builder: (BuildContext context) => CompleteSignUp());
                 },
               ),
 
