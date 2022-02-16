@@ -16,19 +16,27 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges() ,
-        builder: (ctx , snapshot) {
-          if(snapshot.hasData){
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, snapshot) {
+          if (snapshot.hasData) {
             return CheckUser();
           }
           return LoginScreen();
         },
+      ),
+      theme: ThemeData(
+        // Define the default brightness and colors.
+        brightness: Brightness.light,
+        primaryColor: Colors.purple[700],
+        backgroundColor: Color(0xfffdfdfdf),
+
+        // Define the default font family.
+        fontFamily: 'Georgia',
       ),
     );
   }

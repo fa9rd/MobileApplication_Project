@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/screens/dashboard.dart';
-import 'package:project2/services/database.dart';
-
+import 'package:project2/screens/sv_dashboard.dart';
 import 'complete_signup.dart';
 
 class CheckUser extends StatefulWidget {
@@ -37,13 +36,22 @@ class _CheckUserState extends State<CheckUser> {
           }
 
           if (snapshot.connectionState == ConnectionState.done) {
-            // Map<String, dynamic> data = snapshot.data.data() as Map<String, dynamic>;
+            Map<String, dynamic> data = snapshot.data.data() as Map<String, dynamic>;
             // return Text("Full Name: ${data['full_name']} ${data['last_name']}");
-            return Dashboard();
+            if(data['UserType'] == "Supervisor"){
+              return SvDashboard();
+            }
+            else{
+              return Dashboard();
+            }
           }
 
           return Center(
-            child: Text("Loading"),
+            child: CircularProgressIndicator(
+              // value: controller.value,
+              color:Theme.of(context).primaryColor ,
+              semanticsLabel: 'Loading',
+            ),
           );
         },
       ),

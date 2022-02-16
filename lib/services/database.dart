@@ -11,7 +11,7 @@ class DatabaseService {
 
   //colection reference
   final CollectionReference UserCollection =
-      FirebaseFirestore.instance.collection('usersData');
+      FirebaseFirestore.instance.collection('users');
 
    final user= FirebaseAuth.instance.currentUser;
 
