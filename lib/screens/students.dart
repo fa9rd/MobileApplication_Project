@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './Meeting.dart';
+import './single_meeting_page.dart';
 
 class Student extends StatefulWidget {
   const Student({ Key key }) : super(key: key);
@@ -158,7 +158,7 @@ class _StudentState extends State<Student> {
                                                       context,
                                                       MaterialPageRoute(
                                                           builder: (context) =>
-                                                              const meeting()),
+                                                              const SingleMeetingPage()),
                                                     );
                                                   },
                                                 ),

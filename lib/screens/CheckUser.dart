@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project2/screens/dashboard.dart';
-import 'package:project2/screens/sv_dashboard.dart';
+import 'package:project2/screens/students/dashboard.dart';
+import 'package:project2/screens/Supervisors/sv_dashboard.dart';
 import 'complete_signup.dart';
 
 class CheckUser extends StatefulWidget {
@@ -43,7 +43,8 @@ class _CheckUserState extends State<CheckUser> {
               return SvDashboard();
             }
             else{
-              return Dashboard();
+              print("first Sv : " +  data['sv'].toString());
+              return Dashboard(uid: uid, sv: data['sv'],fName: data['name'],);
             }
           }
 

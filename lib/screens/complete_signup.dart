@@ -6,7 +6,7 @@ import 'package:project2/services/database.dart';
 import 'package:project2/widgets/field.dart';
 import 'package:project2/widgets/signup_form.dart';
 
-import 'dashboard.dart';
+import 'students/dashboard.dart';
 
 class CompleteSignUp extends StatefulWidget {
   final uid;

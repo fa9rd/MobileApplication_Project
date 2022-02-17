@@ -274,9 +274,10 @@ class _SignUpFormState extends State<SignUpForm> {
                                         SizedBox(
                                           height: 5,
                                         ),
+
                                         Field(
                                             "passwordConfirmation",
-                                            "value.length < 8",
+                                            _userPasswordConfirmation == _userPassword ,
                                             "Passwords does not match",
                                             _userPasswordConfirmation,
                                             TextInputType.visiblePassword,

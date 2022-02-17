@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:project2/models/meeting_data.dart';
 import 'package:project2/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -13,7 +14,9 @@ class DatabaseService {
   final CollectionReference UserCollection =
       FirebaseFirestore.instance.collection('users');
 
-   final user= FirebaseAuth.instance.currentUser;
+  final MeetingCollection = FirebaseFirestore.instance.collection('meetings');
+
+  final user = FirebaseAuth.instance.currentUser;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -22,7 +25,8 @@ class DatabaseService {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
@@ -32,41 +36,40 @@ class DatabaseService {
 
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
-    // final User = userdata.user;
-    // final userlen = DatabaseService(uid: User.uid ).checkUser();
-    //  if(userlen != 1){
-    //    showDialog(
-    //      context: context,
-    //      builder: (BuildContext context) => CompleteSignUp(uid: User.uid));
-    //  }
-
-
-
   }
 
+  // String getUserData()  {
+  //   Future<DocumentSnapshot<Object>>  theUser =  UserCollection.doc(uid).get();
+  //   Map<String, dynamic> tdata;
+  //     var thedata = theUser.asStream().map((event) => tdata['name'] = event.get("name"));
+  //
+  //     String value  = tdata.values..toString() ; // <-- The value you want to retrieve.
+  //     return value.toString();
+  //
+  //
+  // }
 
   Future updateUserData(
-      {
-      @required String phone,
+      {@required String phone,
       @required String wechat,
       @required String type}) async {
-    return await UserCollection.doc(uid).set(
-        {'name':user.displayName , 'phone': phone, 'wechat': wechat, 'userType': type});
+    return await UserCollection.doc(uid).set({
+      'name': user.displayName,
+      'email': user.email,
+      'phone': phone,
+      'wechat': wechat,
+      'userType': type
+    });
   }
 
-  //Get User Document Stream
-  Stream<UserData> get getUserData {
-    return UserCollection.doc(uid).snapshots().map(_userDataFromSnapshot);
+  Future acceptInvitation({@required String code}) async {
+    var sv = await UserCollection.where('code', isEqualTo: code).get();
+    return await UserCollection.doc(user.uid).update({'sv': sv.docs[0].id});
   }
 
-  //User Data from Snapshot
-  UserData _userDataFromSnapshot(DocumentSnapshot snapshot) {
-    return UserData(
-        uid: uid,
-        name: 'name',
-        wechat: 'wechat',
-        phone: 'phone',
-        email: 'email',
-        type: 'UserType');
+  Stream getStudentsList() {
+    return UserCollection.where('userType', isEqualTo: 'Student')
+        .where('sv', isEqualTo: uid)
+        .snapshots();
   }
 }
