@@ -1,14 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 
 class Meeting extends StatefulWidget {
-  Meeting({@required this.key, this.svId , @required this.studentId , @required this.notes,@required this.progress ,@required this.dateTime, this.nextMeeting });
+  Meeting({@required this.key , @required this.studentId , @required this.notes,@required this.progress ,@required this.dateTime, this.nextMeeting });
   final Key key;
-  final String svId;
   final String studentId;
   final String notes;
   final String progress;
-  final DateTime dateTime;
+  final Timestamp dateTime;
   final String nextMeeting;
 
   @override
@@ -20,7 +20,7 @@ class _MeetingState extends State<Meeting> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(25),
+      margin: EdgeInsets.fromLTRB(15,8,15,8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -37,7 +37,7 @@ class _MeetingState extends State<Meeting> {
             ),
             child: Card(
               elevation: 8,
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(8),
               child: Container(
                 height: 100,
                 color: Colors.white,
@@ -53,6 +53,7 @@ class _MeetingState extends State<Meeting> {
                         ),
                       ),
                     ),
+
                     Expanded(
                       child: Container(
                         alignment: Alignment.topLeft,
@@ -62,11 +63,14 @@ class _MeetingState extends State<Meeting> {
                               flex: 5,
                               child: ListTile(
                                 title: Text("Meeting 1"),
-                                subtitle: Text("${widget.dateTime.day}-${widget.dateTime.month}-${widget.dateTime.year}"),
+                                subtitle: Text("${widget.dateTime.toDate().day}-${widget.dateTime.toDate().month}-${widget.dateTime.toDate().year}"),
                               ),
                             ),
+                            SizedBox(
+                              height: 38,
+                            ),
                             Expanded(
-                              flex: 5,
+                              flex: 10,
                               child: Row(
                                 mainAxisAlignment:
                                 MainAxisAlignment.end,

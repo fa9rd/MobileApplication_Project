@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project2/screens/Supervisors/students_list.dart';
-import 'package:project2/screens/students.dart';
 import 'package:project2/services/database.dart';
 import '../single_meeting_page.dart';
 
@@ -22,7 +21,7 @@ class _SvDashboardState extends State<SvDashboard> {
         child: Scaffold(
           backgroundColor: Theme.of(context).backgroundColor,
           appBar: AppBar(
-            title: Text("${DatabaseService().user.displayName}"),
+            title: Text("Dashboard"),
             backgroundColor: Theme.of(context).primaryColor,
             centerTitle: true,
             actions: <Widget>[

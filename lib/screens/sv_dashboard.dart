@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:project2/screens/students.dart';
-import './Meeting.dart';
+import 'package:project2/screens/Oldstudents.dart';
+import './none.dart';
 
 class SvDashboard extends StatefulWidget {
   const SvDashboard({Key key}) : super(key: key);
@@ -119,7 +119,7 @@ class _SvDashboardState extends State<SvDashboard> {
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        const Student()),
+                                                        const Students()),
                                               );
                                             },
                                           ),

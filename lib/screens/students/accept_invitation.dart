@@ -7,10 +7,12 @@ import 'package:project2/widgets/field.dart';
 class AcceptSupervisorInvitation extends StatefulWidget {
   // const AcceptSupervisorInvitation({Key key}) : super(key: key);
   @override
-  State<AcceptSupervisorInvitation> createState() => _AcceptSupervisorInvitationState();
+  State<AcceptSupervisorInvitation> createState() =>
+      _AcceptSupervisorInvitationState();
 }
 
-class _AcceptSupervisorInvitationState extends State<AcceptSupervisorInvitation> {
+class _AcceptSupervisorInvitationState
+    extends State<AcceptSupervisorInvitation> {
   final _formKey = GlobalKey<FormState>();
 
   TextEditingController _invetiationCode = TextEditingController();
@@ -40,31 +42,7 @@ class _AcceptSupervisorInvitationState extends State<AcceptSupervisorInvitation>
                       "Invitation Code ",
                       false),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    child: Text(
-                      "Accept Invitation",
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    onPressed: () async {
-                      if (_formKey.currentState.validate()) {
-                        _formKey.currentState.save();
-                        print("Inv code : " + _invetiationCode.text.toString());
-                        await DatabaseService().acceptInvitation(
-                            code: _invetiationCode.text.trim().toString());
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => CheckUser()),
-                        );
-                      }
-                    },
-                  ),
-                ),
+
                 Padding(
                   padding: EdgeInsets.fromLTRB(15, 20, 15, 10),
                   child: GestureDetector(
@@ -73,10 +51,10 @@ class _AcceptSupervisorInvitationState extends State<AcceptSupervisorInvitation>
                         _formKey.currentState.save();
                         print("Inv code : " + _invetiationCode.text.toString());
                         await DatabaseService().acceptInvitation(
-                            code: _invetiationCode.text.toString());
+                            code: _invetiationCode.text.trim().toString());
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Dashboard()),
+                          MaterialPageRoute(builder: (context) => CheckUser()),
                         );
                       }
                     },

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import './single_meeting_page.dart';
 
-class Student extends StatefulWidget {
-  const Student({ Key key }) : super(key: key);
+class Students extends StatefulWidget {
+  const Students({ Key key }) : super(key: key);
 
   @override
-  _StudentState createState() => _StudentState();
+  _StudentsState createState() => _StudentsState();
 }
 
-class _StudentState extends State<Student> {
+class _StudentsState extends State<Students> {
 
 
   @override

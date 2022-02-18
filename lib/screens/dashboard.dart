@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import './Meeting.dart';
+import './none.dart';
 import 'complete_signup.dart';
 
 class Dashboard extends StatefulWidget {
@@ -99,12 +99,12 @@ class _DashboardState extends State<Dashboard> {
                                                       fontSize: 16),
                                                 ),
                                                 onPressed: () {
-                                                  Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const meeting()),
-                                                  );
+                                                  // Navigator.push(
+                                                  //   context,
+                                                  //   MaterialPageRoute(
+                                                  //       builder: (context) =>
+                                                  //           const meeting()),
+                                                  // );
                                                 },
                                               ),
                                               SizedBox(

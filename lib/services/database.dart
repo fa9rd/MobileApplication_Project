@@ -62,6 +62,22 @@ class DatabaseService {
     });
   }
 
+
+  Future addMeeting(
+      {
+        @required String sid,
+        @required String notes,
+        @required String progress,
+        @required String nextMeeting}) async {
+    return await MeetingCollection.add({
+      'studentId': sid,
+      'notes':notes,
+      'progress': progress,
+      'dateTime': DateTime.now(),
+      'nextMeeting': nextMeeting
+    });
+  }
+  
   Future acceptInvitation({@required String code}) async {
     var sv = await UserCollection.where('code', isEqualTo: code).get();
     return await UserCollection.doc(user.uid).update({'sv': sv.docs[0].id});

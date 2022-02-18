@@ -31,7 +31,7 @@ class _StudentsListState extends State<StudentsList> {
                 reverse: true,
                 itemCount: students.length,
                 itemBuilder: (ctx, index) => Student(
-                  key: ValueKey(students[index].id),
+                  uid: students[index].id,
                   name: students[index]['name'],
                   email: students[index]['email'],
                 ),

@@ -14,44 +14,42 @@ class MeetingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Padding(
-              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-              child: Text("Meetings  List: ")),
-          StreamBuilder(
-            stream: FirebaseFirestore.instance
-                .collection('users')
-                .doc(uid)
-                .collection("meetings")
-                .snapshots(),
-            builder: (ctx, meetingsSnapshot) {
-              if (meetingsSnapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              final meetings = meetingsSnapshot.data.docs;
+    return Expanded(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(20,30,20, 5),
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.all(10),
+          children: [
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("meetings").where("studentId", isEqualTo: uid)
+                  .snapshots(),
+              builder: (ctx, meetingsSnapshot) {
+                if (meetingsSnapshot.connectionState == ConnectionState.waiting) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                final meetings = meetingsSnapshot.data.docs;
 
-              return ListView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                reverse: true,
-                itemCount: meetings.length,
-                itemBuilder: (ctx, index) => Meeting(
-                  key: ValueKey(meetings[index].id),
-                  svId: sv,
-                  studentId: uid,
-                  notes: meetings[index]['notes'],
-                  progress: meetings[index]['progress'],
-                  dateTime: meetings[index]['dateTime'],
-                  nextMeeting: meetings[index]['nextMeeting'],
-                ),
-              );
-            },
-          ),
-        ],
+                return ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: meetings.length,
+                  itemBuilder: (ctx, index) => Meeting(
+                    key: ValueKey(meetings[index].id),
+                    studentId: meetings[index]['studentId'],
+                    notes: meetings[index]['notes'],
+                    progress: meetings[index]['progress'],
+                    dateTime: meetings[index]['dateTime'],
+                    nextMeeting: meetings[index]['nextMeeting']
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
