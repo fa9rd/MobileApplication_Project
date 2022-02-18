@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project2/models/user.dart';
@@ -12,6 +13,7 @@ import '../screens/login_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project2/models/user.dart' as UserModel;
+import '../background.dart';
 
 class SignUpForm extends StatefulWidget {
   SignUpForm(this.submitFn, this.isLoading);
@@ -80,283 +82,304 @@ class _SignUpFormState extends State<SignUpForm> {
                 ? SingleChildScrollView(
                     child: Column(
                       children: [
-                        Container(
-                          margin: EdgeInsets.all(25),
-                          child: Column(
-                            children: [
-                              // TabBar Code
-                              Row(children: [
-                                Container(
-                                  height: height / 15,
-                                  width: width / 2,
-                                  child: TopAnime(
-                                    2,
-                                    5,
-                                    child: ListView.builder(
-                                      itemCount: feature.length,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              i = index;
-                                            });
-                                          },
-                                          child: Column(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 20),
-                                                child: Text(
-                                                  feature[index],
-                                                  style: TextStyle(
-                                                    color: i == index
-                                                        ? Colors.black
-                                                        : Colors.grey,
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 8,
-                                              ),
-                                              i == index
-                                                  ? Container(
-                                                      height: 2.8,
-                                                      width: width / 6,
-                                                      color: Color.fromRGBO(
-                                                          143, 148, 251, 5),
-                                                    )
-                                                  : Container(),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                                Expanded(child: Container()),
-
-                                // Profile
-                                RightAnime(
-                                  1,
-                                  15,
-                                  curve: Curves.easeInOutQuad,
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(20),
-                                    child: Container(
-                                      width: 60,
-                                      height: 60,
-                                      color: Colors.red[400],
-                                      child: i == 0
-                                          ? Image(
-                                              image: NetworkImage(
-                                                  "https://i.pinimg.com/564x/5d/a3/d2/5da3d22d08e353184ca357db7800e9f5.jpg"),
-                                            )
-                                          : Icon(
-                                              Icons.account_circle_outlined,
-                                              color: Colors.white,
-                                              size: 40,
-                                            ),
-                                    ),
-                                  ),
-                                ),
-                              ]),
-
-                              SizedBox(
-                                height: 30,
-                              ),
-
-                              // Top Text
-                              Container(
-                                padding: EdgeInsets.only(left: 15),
-                                width: width,
-                                child: TopAnime(
-                                  1,
-                                  20,
-                                  curve: Curves.fastOutSlowIn,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "WELCOME ",
-                                        style: TextStyle(
-
-                                          color:
-                                          Color.fromRGBO(143, 148, 251, 6),
-                                          fontSize: 40,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(
-                                height: height / 20,
-                              ),
-
-                              // TextFiled
-                              Container(
-                                width: width / 1.2,
-                                height: height / 2,
-                                child: TopAnime(
-                                  1,
-                                  16,
-                                  curve: Curves.easeInExpo,
-                                  child: Form(
-                                    key: _SignUpFormKey,
-                                    child: ListView(
-                                      shrinkWrap: true,
-                                      padding: EdgeInsets.all(10),
+                        // TabBar Code
+                        Row(children: [
+                          Container(
+                            height: height / 15,
+                            width: width / 2,
+                            child: TopAnime(
+                              2,
+                              5,
+                              child: ListView.builder(
+                                itemCount: feature.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        i = index;
+                                      });
+                                    },
+                                    child: Column(
                                       children: [
-                                        Field(
-                                            "fullName",
-                                            "!value.contains('@')",
-                                            "Enter valid Email Address!",
-                                            _userFullName,
-                                            TextInputType.name,
-                                            "Full Name",
-                                            false),
-                                        SizedBox(
-                                          height: 25,
-                                        ),
-                                        Field(
-                                            "email",
-                                            "!value.contains('@')",
-                                            "Enter valid Email Address!",
-                                            _userEmail,
-                                            TextInputType.emailAddress,
-                                            "Email",
-                                            false),
-                                        SizedBox(
-                                          height: 25,
-                                        ),
-                                        Field(
-                                            "phone",
-                                            "!value.contains('@')",
-                                            "Enter valid Email Address!",
-                                            _userPhone,
-                                            TextInputType.phone,
-                                            "Phone Number",
-                                            false),
-                                        SizedBox(
-                                          height: 25,
-                                        ),
-                                        Field(
-                                            "wechat",
-                                            "!value.contains('@')",
-                                            "Enter valid Email Address!",
-                                            _userWechat,
-                                            TextInputType.text,
-                                            "Wechat ID",
-                                            false),
-                                        SizedBox(
-                                          height: 25,
-                                        ),
-                                        Field(
-                                            "password",
-                                            "value.length < 8",
-                                            "Password must be  at least 7 characters",
-                                            _userPassword,
-                                            TextInputType.visiblePassword,
-                                            "password",
-                                            true),
-
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-
-                                        Field(
-                                            "passwordConfirmation",
-                                            _userPasswordConfirmation == _userPassword ,
-                                            "Passwords does not match",
-                                            _userPasswordConfirmation,
-                                            TextInputType.visiblePassword,
-                                            "Confirm Password",
-                                            true),
-
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        DropDown(key: _DropDownStateKey),
-                                        // FaceBook and Google ICon
-                                        TopAnime(
-                                          1,
-                                          10,
-                                          child: InkWell(
-                                            onTap: (){},
-                                            child: Row(
-                                              children: [
-                                                IconButton(
-                                                  icon: FaIcon(
-                                                    FontAwesomeIcons.googlePlusG,
-                                                    size: 35,
-                                                  ),
-                                                  onPressed:(){
-                                                    DatabaseService().signInWithGoogle();
-                                                  },
-
-                                                ),
-                                                SizedBox(
-                                                  width: 15,
-                                                ),
-                                                Text(
-                                                  'Login with Google',
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 15),
-                                                ),
-                                              ],
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                          child: Text(
+                                            feature[index],
+                                            style: TextStyle(
+                                              color: i == index
+                                                  ? Colors.black
+                                                  : Colors.grey,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Container(
-                                              padding: EdgeInsets.only(right: 15),
-                                              child: GestureDetector(
-                                                onTap: _trySubmit,
-                                                child: Container(
-                                                    decoration: BoxDecoration(
-                                                        color: Color.fromRGBO(143, 148, 251, 6),
-                                                        borderRadius:
-                                                        BorderRadius.circular(20)),
-                                                    width: 150,
-                                                    height: height / 15,
-                                                    child: Center(
-                                                      child: Text(
-                                                        "Sign up",
-                                                        style: TextStyle(
-                                                          fontSize: 20,
-                                                          fontWeight: FontWeight.bold,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                        SizedBox(
+                                          height: 8,
                                         ),
+                                        i == index
+                                            ? Container(
+                                                height: 2.8,
+                                                width: width / 6,
+                                                color: Color.fromRGBO(
+                                                    143, 148, 251, 5),
+                                              )
+                                            : Container(),
                                       ],
                                     ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          Expanded(child: Container()),
+
+                          // Profile
+                          RightAnime(
+                            1,
+                            15,
+                            curve: Curves.easeInOutQuad,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Container(
+                                width: 60,
+                                height: 60,
+                                color: Colors.red[400],
+                                child: i == 0
+                                    ? Image(
+                                        image: NetworkImage(
+                                            "https://i.pinimg.com/564x/5d/a3/d2/5da3d22d08e353184ca357db7800e9f5.jpg"),
+                                      )
+                                    : Icon(
+                                        Icons.account_circle_outlined,
+                                        color: Colors.white,
+                                        size: 40,
+                                      ),
+                              ),
+                            ),
+                          ),
+                        ]),
+
+                        SizedBox(
+                          height: 30,
+                        ),
+
+                        // Top Text
+                        Container(
+                          padding: EdgeInsets.only(left: 15),
+                          width: width,
+                          child: TopAnime(
+                            1,
+                            20,
+                            curve: Curves.fastOutSlowIn,
+                            child: Column(
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "WELCOME ",
+                                  style: TextStyle(
+
+                                    color:
+                                    Color.fromRGBO(143, 148, 251, 6),
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
 
+                        SizedBox(
+                          height: height / 20,
+                        ),
+
+                        // TextFiled
+                        Container(
+                          width: width / 1.2,
+                          height: height / 2,
+                          child: TopAnime(
+                            1,
+                            16,
+                            curve: Curves.easeInExpo,
+                            child: Form(
+                              key: _SignUpFormKey,
+                              child: ListView(
+                                shrinkWrap: true,
+                                padding: EdgeInsets.all(10),
+                                children: [
+                                  Field(
+                                      "fullName",
+                                      "!value.contains('@')",
+                                      "Enter valid Email Address!",
+                                      _userFullName,
+                                      TextInputType.name,
+                                      "Full Name",
+                                      false),
+                                  SizedBox(
+                                    height: 25,
+                                  ),
+                                  Field(
+                                      "email",
+                                      "!value.contains('@')",
+                                      "Enter valid Email Address!",
+                                      _userEmail,
+                                      TextInputType.emailAddress,
+                                      "Email",
+                                      false),
+                                  SizedBox(
+                                    height: 25,
+                                  ),
+                                  Field(
+                                      "phone",
+                                      "!value.contains('@')",
+                                      "Enter valid Email Address!",
+                                      _userPhone,
+                                      TextInputType.phone,
+                                      "Phone Number",
+                                      false),
+                                  SizedBox(
+                                    height: 25,
+                                  ),
+                                  Field(
+                                      "wechat",
+                                      "!value.contains('@')",
+                                      "Enter valid Email Address!",
+                                      _userWechat,
+                                      TextInputType.text,
+                                      "Wechat ID",
+                                      false),
+                                  SizedBox(
+                                    height: 25,
+                                  ),
+                                  Field(
+                                      "password",
+                                      "value.length < 8",
+                                      "Password must be  at least 7 characters",
+                                      _userPassword,
+                                      TextInputType.visiblePassword,
+                                      "password",
+                                      true),
+
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+
+                                  Field(
+                                      "passwordConfirmation",
+                                      _userPasswordConfirmation == _userPassword ,
+                                      "Passwords does not match",
+                                      _userPasswordConfirmation,
+                                      TextInputType.visiblePassword,
+                                      "Confirm Password",
+                                      true),
+
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  DropDown(key: _DropDownStateKey),
+                                  // FaceBook and Google ICon
+                                  TopAnime(
+                                    1,
+                                    10,
+                                    child: InkWell(
+                                      onTap: (){},
+                                      child: Row(
+                                        children: [
+                                          IconButton(
+                                            icon: FaIcon(
+                                              FontAwesomeIcons.googlePlusG,
+                                              size: 35,
+                                            ),
+                                            onPressed:(){
+                                              DatabaseService().signInWithGoogle();
+                                            },
+
+                                          ),
+                                          SizedBox(
+                                            width: 15,
+                                          ),
+                                          Text(
+                                            'Login with Google',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  // Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.end,
+                                  //   children: [
+                                  //     Container(
+                                  //       padding: EdgeInsets.only(right: 15),
+                                  //       child: GestureDetector(
+                                  //         onTap: _trySubmit,
+                                  //         child: Container(
+                                  //             decoration: BoxDecoration(
+                                  //                 color: Color.fromRGBO(143, 148, 251, 6),
+                                  //                 borderRadius:
+                                  //                 BorderRadius.circular(20)),
+                                  //             width: 150,
+                                  //             height: height / 15,
+                                  //             child: Center(
+                                  //               child: Text(
+                                  //                 "Sign up",
+                                  //                 style: TextStyle(
+                                  //                   fontSize: 20,
+                                  //                   fontWeight: FontWeight.bold,
+                                  //                   color: Colors.white,
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //         ),
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(right: 15),
+                              child: GestureDetector(
+                                onTap: _trySubmit,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Color.fromRGBO(143, 148, 251, 6),
+                                      borderRadius:
+                                      BorderRadius.circular(20)),
+                                  width: 150,
+                                  height: height / 15,
+                                  child: Center(
+                                    child: Text(
+                                      "Sign up",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   )
