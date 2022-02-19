@@ -14,7 +14,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project2/models/user.dart' as UserModel;
 import '../background.dart';
-
 class SignUpForm extends StatefulWidget {
   SignUpForm(this.submitFn, this.isLoading);
 
@@ -83,86 +82,89 @@ class _SignUpFormState extends State<SignUpForm> {
                     child: Column(
                       children: [
                         // TabBar Code
-                        Row(children: [
-                          Container(
-                            height: height / 15,
-                            width: width / 2,
-                            child: TopAnime(
-                              2,
-                              5,
-                              child: ListView.builder(
-                                itemCount: feature.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder:
-                                    (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        i = index;
-                                      });
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 20),
-                                          child: Text(
-                                            feature[index],
-                                            style: TextStyle(
-                                              color: i == index
-                                                  ? Colors.black
-                                                  : Colors.grey,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
+                        Container(
+                          margin: EdgeInsets.all(25),
+                          child: Row(children: [
+                            Container(
+                              height: height / 15,
+                              width: width / 2,
+                              child: TopAnime(
+                                2,
+                                5,
+                                child: ListView.builder(
+                                  itemCount: feature.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          i = index;
+                                        });
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 20),
+                                            child: Text(
+                                              feature[index],
+                                              style: TextStyle(
+                                                color: i == index
+                                                    ? Colors.black
+                                                    : Colors.grey,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: 8,
-                                        ),
-                                        i == index
-                                            ? Container(
-                                                height: 2.8,
-                                                width: width / 6,
-                                                color: Color.fromRGBO(
-                                                    143, 148, 251, 5),
-                                              )
-                                            : Container(),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                          Expanded(child: Container()),
-
-                          // Profile
-                          RightAnime(
-                            1,
-                            15,
-                            curve: Curves.easeInOutQuad,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Container(
-                                width: 60,
-                                height: 60,
-                                color: Colors.red[400],
-                                child: i == 0
-                                    ? Image(
-                                        image: NetworkImage(
-                                            "https://i.pinimg.com/564x/5d/a3/d2/5da3d22d08e353184ca357db7800e9f5.jpg"),
-                                      )
-                                    : Icon(
-                                        Icons.account_circle_outlined,
-                                        color: Colors.white,
-                                        size: 40,
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          i == index
+                                              ? Container(
+                                                  height: 2.8,
+                                                  width: width / 6,
+                                                  color: Color.fromRGBO(
+                                                      143, 148, 251, 5),
+                                                )
+                                              : Container(),
+                                        ],
                                       ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                        ]),
+                            Expanded(child: Container()),
+
+                            // Profile
+                            RightAnime(
+                              1,
+                              15,
+                              curve: Curves.easeInOutQuad,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Container(
+                                  width: 60,
+                                  height: 60,
+                                  color: Colors.red[400],
+                                  child: i == 0
+                                      ? Image(
+                                    image: AssetImage(
+                                        "assets/images/user.png"),
+                                  )
+                                      : Icon(
+                                    Icons.account_circle_outlined,
+                                    color: Colors.white,
+                                    size: 40,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ]),
+                        ),
 
                         SizedBox(
                           height: 30,
@@ -382,6 +384,7 @@ class _SignUpFormState extends State<SignUpForm> {
                         )
                       ],
                     ),
+
                   )
                 : LoginScreen()),
       ),
