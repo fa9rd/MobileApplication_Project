@@ -23,9 +23,9 @@ class _DashboardState extends State<Dashboard> {
     return SafeArea(
         child: GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-      child: Scaffold(
-        backgroundColor: Theme.of(context).backgroundColor,
-        appBar: AppBar(
+          child: Scaffold(
+          backgroundColor: Theme.of(context).backgroundColor,
+          appBar: AppBar(
           title: Text("${widget.fName}"),
           actions: <Widget>[
             IconButton(
@@ -48,7 +48,9 @@ class _DashboardState extends State<Dashboard> {
                   child: Text("Meetings List")),
               Expanded(
                   child: MeetingsPage(
-                      sv: widget.sv, uid: widget.uid.toString(), name: widget.fName)),
+                      sv: widget.sv,
+                      uid: widget.uid.toString(),
+                      name: widget.fName)),
             ],
             // ): SingleChildScrollView(child: AcceptSupervisorInvitation())
           ),
