@@ -17,9 +17,8 @@ class MeetingsPage extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: EdgeInsets.fromLTRB(20,30,20, 5),
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.all(10),
+        child: Column(
+
           children: [
             StreamBuilder(
               stream: FirebaseFirestore.instance
@@ -34,7 +33,7 @@ class MeetingsPage extends StatelessWidget {
                 final meetings = meetingsSnapshot.data.docs;
 
                 return ListView.builder(
-                  scrollDirection: Axis.vertical,
+                  physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: meetings.length,
                   itemBuilder: (ctx, index) => Meeting(
@@ -43,7 +42,7 @@ class MeetingsPage extends StatelessWidget {
                     notes: meetings[index]['notes'],
                     progress: meetings[index]['progress'],
                     dateTime: meetings[index]['dateTime'],
-                    nextMeeting: meetings[index]['nextMeeting']
+                    nextMeeting: meetings[index]['nextMeetingStart']
                   ),
                 );
               },

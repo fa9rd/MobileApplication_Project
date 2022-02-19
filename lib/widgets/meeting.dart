@@ -9,7 +9,7 @@ class Meeting extends StatefulWidget {
   final String notes;
   final String progress;
   final Timestamp dateTime;
-  final String nextMeeting;
+  final Timestamp nextMeeting;
 
   @override
   _MeetingState createState() => _MeetingState();

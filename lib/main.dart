@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:googleapis_auth/auth_io.dart';
 import 'package:project2/screens/CheckUser.dart';
 import 'package:project2/screens/complete_signup.dart';
 import 'package:project2/screens/students/dashboard.dart';
@@ -8,13 +9,17 @@ import 'package:project2/services/database.dart';
 import 'screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import './background.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:googleapis/calendar/v3.dart' as cal;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   runApp(MyApp());
 }
+
+
 
 class MyApp extends StatelessWidget {
   @override
