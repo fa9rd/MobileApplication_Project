@@ -22,6 +22,10 @@ class _CheckUserState extends State<CheckUser> {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     var uid = FirebaseAuth.instance.currentUser.uid;
     return Scaffold(
+      appBar: AppBar(
+        title: Text("PG Supervisor Notes",),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
       body: FutureBuilder<DocumentSnapshot>(
         future: users.doc(uid).get(),
         builder:
@@ -50,7 +54,7 @@ class _CheckUserState extends State<CheckUser> {
                   uid: uid, sv: data['sv'], fName: data['name'],);
               }
               else{
-                AcceptSupervisorInvitation();
+                return AcceptSupervisorInvitation();
               }
             }
           }
