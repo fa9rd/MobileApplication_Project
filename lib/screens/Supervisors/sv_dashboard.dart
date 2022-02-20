@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project2/screens/Supervisors/students_list.dart';
 import 'package:project2/services/database.dart';
-import '../single_meeting_page.dart';
 
 class SvDashboard extends StatefulWidget {
-  const SvDashboard({Key key}) : super(key: key);
+  final String code;
+   SvDashboard({this.code});
 
   @override
   _SvDashboardState createState() => _SvDashboardState();
@@ -41,15 +42,36 @@ class _SvDashboardState extends State<SvDashboard> {
             child: Column(
               children: [
                 Container(
-                    margin: EdgeInsets.all(25),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [])),
-                Container(
                     //margin: EdgeInsets.all(5),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                    Center(
+                      child: InkWell(
+                        onTap: (){
+                          Clipboard.setData(ClipboardData(text: widget.code));
+                        },
+                        child: Card(
+                          elevation: 1,
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(30,10,30,10),
+                            child: Center(
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      child: Text(widget.code),
+                                    ),
+                                  ),
+                                  Icon(Icons.copy),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                       Center(
                         child: Text(
                           "Students: ",

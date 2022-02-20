@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project2/screens/CheckUser.dart';
 import 'package:project2/screens/students/dashboard.dart';
 import 'package:project2/services/database.dart';
@@ -19,8 +21,15 @@ class _AcceptSupervisorInvitationState
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Accept Invitation",),
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+      body:Center(
+      child: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.all(10),
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(15, 20, 15, 10),
@@ -77,11 +86,37 @@ class _AcceptSupervisorInvitationState
                     ),
                   ),
                 ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(15, 20, 15, 10),
+                  child: GestureDetector(
+                    onTap: ()  {
+                      FirebaseAuth.instance.signOut();
+                      GoogleSignIn().signOut();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(20)),
+                      width: 250,
+                      height: 50,
+                      child: Center(
+                        child: Text(
+                          "Cancel",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
         ],
       ),
-    );
+    ));
   }
 }

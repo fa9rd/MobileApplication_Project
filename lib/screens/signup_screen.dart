@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:project2/services/database.dart';
 import 'package:project2/widgets/signup_form.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -29,12 +30,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
       userCredential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-
+      if (userType == "Supervisor"){
+        String invCode = DatabaseService().getRandomString(16);
+        print("invcode : ${invCode}");
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userCredential.user.uid)
           .set(
-              {'name': name, 'email': email, 'phone': phone, 'wechat': wechat , 'userType':userType});
+              {'name': name, 'email': email, 'phone': phone, 'wechat': wechat , 'userType':userType , 'code':invCode});
+      }
+      else{
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user.uid)
+            .set(
+            {'name': name, 'email': email, 'phone': phone, 'wechat': wechat , 'userType':userType});
+      }
     } on PlatformException catch (err) {
       var massage = " Error please check your credentials !";
 

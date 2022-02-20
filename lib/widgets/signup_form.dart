@@ -403,7 +403,7 @@ class DropDown extends StatefulWidget {
 }
 
 class _DropDownState extends State<DropDown> {
-  final items = ['Supervisor', 'Co-Supervisor', 'Student'];
+  final items = ['Supervisor', 'Student'];
   String valueChoose;
   _DropDownState(this.valueChoose);
   @override

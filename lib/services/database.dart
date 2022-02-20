@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -6,6 +8,7 @@ import 'package:project2/models/meeting_data.dart';
 import 'package:project2/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:googleapis/calendar/v3.dart';
+import 'package:project2/widgets/webView.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:googleapis_auth/googleapis_auth.dart' as auth show AuthClient;
 
@@ -13,6 +16,9 @@ import 'package:googleapis_auth/googleapis_auth.dart' as auth show AuthClient;
 class DatabaseService {
   final String uid;
    static var theCalendar;
+  static const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  Random _rnd = Random();
+
   DatabaseService({@required this.uid});
 
   //colection reference
@@ -27,11 +33,21 @@ class DatabaseService {
 
   void prompt(String url) async {
     if (await canLaunch(url)) {
-      await launch(url);
+      await launch(url,
+        enableJavaScript: true,);
     } else {
       throw 'Could not launch $url';
     }
   }
+  void prompt3(String url) async {
+      await MyWebView(url:url);
+
+  }
+
+
+
+  String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+      length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
@@ -46,7 +62,7 @@ class DatabaseService {
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    var _clientID = new ClientId('323266625944-eh81r1e1107lorcaveu52rdo419thunc.apps.googleusercontent.com',"");
+    var _clientID = new ClientId("323266625944-eh81r1e1107lorcaveu52rdo419thunc.apps.googleusercontent.com","");
     const _scopes = const [CalendarApi.calendarScope];
     await clientViaUserConsent(_clientID, _scopes, prompt).then((AuthClient client) async {
       DatabaseService.theCalendar = CalendarApi(client);
@@ -71,13 +87,28 @@ class DatabaseService {
       {@required String phone,
       @required String wechat,
       @required String type}) async {
-    return await UserCollection.doc(uid).set({
-      'name': user.displayName,
-      'email': user.email,
-      'phone': phone,
-      'wechat': wechat,
-      'userType': type
-    });
+    if (type == "Supervisor"){
+      String invCode = getRandomString(16);
+      return await UserCollection.doc(uid).set({
+        'name': user.displayName,
+        'email': user.email,
+        'phone': phone,
+        'wechat': wechat,
+        'userType': type,
+        'code': invCode
+      });
+    }
+    else{
+      return await UserCollection.doc(uid).set({
+        'name': user.displayName,
+        'email': user.email,
+        'phone': phone,
+        'wechat': wechat,
+        'userType': type,
+
+      });
+    }
+
   }
 
   Future<String> getStudentEmail(String id) async {

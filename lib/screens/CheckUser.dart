@@ -21,53 +21,47 @@ class _CheckUserState extends State<CheckUser> {
   Widget build(BuildContext context) {
     CollectionReference users = FirebaseFirestore.instance.collection('users');
     var uid = FirebaseAuth.instance.currentUser.uid;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("PG Supervisor Notes",),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
-      body: FutureBuilder<DocumentSnapshot>(
-        future: users.doc(uid).get(),
-        builder:
-            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text("Something went wrong"),
-            );
-          }
+    return FutureBuilder<DocumentSnapshot>(
+      future: users.doc(uid).get(),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return Center(
+            child: Text("Something went wrong"),
+          );
+        }
 
-          if (snapshot.hasData && !snapshot.data.exists) {
-            return CompleteSignUp(uid: uid);
-          }
+        if (snapshot.hasData && !snapshot.data.exists) {
+          return CompleteSignUp(uid: uid);
+        }
 
-          if (snapshot.connectionState == ConnectionState.done) {
-            Map<String, dynamic> data = snapshot.data.data() as Map<String, dynamic>;
-            // return Text("Full Name: ${data['full_name']} ${data['last_name']}");
-            print("type : " + data['userType'].toString());
-            if(data['userType'] == "Supervisor"){
-              return SvDashboard();
+        if (snapshot.connectionState == ConnectionState.done) {
+          Map<String, dynamic> data = snapshot.data.data() as Map<String, dynamic>;
+          // return Text("Full Name: ${data['full_name']} ${data['last_name']}");
+          print("type : " + data['userType'].toString());
+          if(data['userType'] == "Supervisor"){
+            return SvDashboard(code:data['code']);
+          }
+          else{
+            if (data['sv'] != null) {
+              print("first Sv : " + data['sv'].toString());
+              return Dashboard(
+                uid: uid, sv: data['sv'], fName: data['name'],);
             }
             else{
-              if (data['sv'] != null) {
-                print("first Sv : " + data['sv'].toString());
-                return Dashboard(
-                  uid: uid, sv: data['sv'], fName: data['name'],);
-              }
-              else{
-                return AcceptSupervisorInvitation();
-              }
+              return AcceptSupervisorInvitation();
             }
           }
+        }
 
-          return Center(
-            child: CircularProgressIndicator(
-              // value: controller.value,
-              color:Theme.of(context).primaryColor ,
-              semanticsLabel: 'Loading',
-            ),
-          );
-        },
-      ),
+        return Center(
+          child: CircularProgressIndicator(
+            // value: controller.value,
+            color:Theme.of(context).primaryColor ,
+            semanticsLabel: 'Loading',
+          ),
+        );
+      },
     );
 
     // var isOld = ds.id;
