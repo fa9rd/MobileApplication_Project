@@ -94,6 +94,7 @@ class Student extends StatelessWidget {
                                           name: name,
                                         )),
                                   );
+
                                 },
                               ),
                               SizedBox(

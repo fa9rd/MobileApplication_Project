@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project2/screens/meeting_page.dart';
+import 'package:project2/services/database.dart';
 
 import 'add_meeting.dart';
 
@@ -35,10 +36,13 @@ class _SingleStudentMeetingsState extends State<SingleStudentMeetings> {
                 Padding(
                   padding: EdgeInsets.fromLTRB(15, 20, 15, 10),
                   child: GestureDetector(
-                    onTap: () => Navigator.push(
+                    onTap: () {
+                       Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => AddNewMeeting(sv: widget.sv, uid: widget.uid,)),
-                    ),
+                    );
+                      DatabaseService().signForClander();
+                    },
                     child: Container(
                       decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,

@@ -8,7 +8,6 @@ import 'package:project2/models/meeting_data.dart';
 import 'package:project2/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:googleapis/calendar/v3.dart';
-import 'package:project2/widgets/webView.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:googleapis_auth/googleapis_auth.dart' as auth show AuthClient;
 
@@ -33,16 +32,20 @@ class DatabaseService {
 
   void prompt(String url) async {
     if (await canLaunch(url)) {
-      await launch(url,
-        enableJavaScript: true,);
+      await launch(url);
     } else {
       throw 'Could not launch $url';
     }
   }
-  void prompt3(String url) async {
-      await MyWebView(url:url);
 
-  }
+
+Future<Function> signForClander() async {
+  var _clientID = new ClientId("323266625944-eh81r1e1107lorcaveu52rdo419thunc.apps.googleusercontent.com");
+  const _scopes = const [CalendarApi.calendarScope];
+  await clientViaUserConsent(_clientID, _scopes, prompt).then((AuthClient client) async {
+    theCalendar = CalendarApi(client);
+  });
+}
 
 
 
@@ -62,11 +65,6 @@ class DatabaseService {
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    var _clientID = new ClientId("323266625944-eh81r1e1107lorcaveu52rdo419thunc.apps.googleusercontent.com","");
-    const _scopes = const [CalendarApi.calendarScope];
-    await clientViaUserConsent(_clientID, _scopes, prompt).then((AuthClient client) async {
-      DatabaseService.theCalendar = CalendarApi(client);
-    });
 
    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
@@ -171,6 +169,7 @@ class DatabaseService {
     end.timeZone = "GMT+08";
     end.dateTime = endTime;
     event.end = end;
+    // signForClander();
     try {
 
       await theCalendar.events.insert(event, calendarId,

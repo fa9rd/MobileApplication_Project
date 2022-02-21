@@ -35,6 +35,7 @@ class MeetingsPage extends StatelessWidget {
                 return ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
+
                   itemCount: meetings.length,
                   itemBuilder: (ctx, index) => Meeting(
                     key: ValueKey(meetings[index].id),
