@@ -41,7 +41,8 @@ class _SingleStudentMeetingsState extends State<SingleStudentMeetings> {
                       context,
                       MaterialPageRoute(builder: (context) => AddNewMeeting(sv: widget.sv, uid: widget.uid,)),
                     );
-                      DatabaseService().signForClander();
+                       print(" the calender is : ${DatabaseService.theCalendar}");
+
                     },
                     child: Container(
                       decoration: BoxDecoration(

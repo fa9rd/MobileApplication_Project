@@ -1,15 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:project2/screens/Supervisors/update_meeting.dart';
+import 'package:project2/screens/single_meeting_page.dart';
+import 'package:project2/services/database.dart';
 
 
 class Meeting extends StatefulWidget {
-  Meeting({@required this.key , @required this.studentId , @required this.notes,@required this.progress ,@required this.dateTime, this.nextMeeting });
-  final Key key;
+  Meeting({@required this.id ,this.title,this.eventId, @required this.studentId , @required this.notes,@required this.progress ,@required this.dateTime, this.nextMeetingStart, this.nextMeetingEnd });
+  final String id;
+  final String title;
+  final String eventId;
   final String studentId;
   final String notes;
   final String progress;
   final Timestamp dateTime;
-  final Timestamp nextMeeting;
+  final Timestamp nextMeetingStart;
+  final Timestamp nextMeetingEnd;
 
   @override
   _MeetingState createState() => _MeetingState();
@@ -37,86 +43,82 @@ class _MeetingState extends State<Meeting> {
             ),
             child: InkWell(
               onTap: (){
-                print("card clicked");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            SingleMeetingPage(meeting: this.widget,)),
+                  );
+
               },
               child: Card(
                 elevation: 8,
                 margin: EdgeInsets.all(8),
                 child: Container(
-                  height: 100,
+                  height: 131,
                   color: Colors.white,
                   child: Row(
                     children: [
                       Center(
                         child: Padding(
                           padding: EdgeInsets.all(1),
-                          child: Expanded(
-                            child: Image.asset(
-                                "assets/images/meeting.png"),
-                            flex: 2,
-                          ),
+                          child: Image.asset(
+                              "assets/images/meeting.png"),
                         ),
                       ),
 
                       Expanded(
+                        flex: 2,
                         child: Container(
                           alignment: Alignment.topLeft,
                           child: Column(
                             children: [
-                              Expanded(
-                                flex: 5,
-                                child: ListTile(
-                                  title: Text("Meeting 1"),
-                                  subtitle: Text("${widget.dateTime.toDate().day}-${widget.dateTime.toDate().month}-${widget.dateTime.toDate().year}"),
-                                ),
+                              ListTile(
+                                title: Text(widget.title),
+                                subtitle: Text("${widget.dateTime.toDate().day}-${widget.dateTime.toDate().month}-${widget.dateTime.toDate().year}"),
                               ),
                               SizedBox(
-                                height: 38,
+                                height: 10,
                               ),
-                              Expanded(
-                                flex: 10,
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.end,
-                                  children: [
-                                    TextButton(
-                                      child: Text(
-                                        "Modify",
-                                        style: TextStyle(
-                                            color: Theme.of(context).primaryColor,
-                                            fontSize: 16),
-                                      ),
-                                      onPressed: () {
-                                        print("modify clicked");
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //       builder: (context) =>
-                                        //       const meeting()),
-                                        // );
-                                      },
+                              Row(
+                                mainAxisAlignment:
+                                MainAxisAlignment.end,
+                                children: [
+                                  TextButton(
+                                    child: Text(
+                                      "Modify",
+                                      style: TextStyle(
+                                          color: Theme.of(context).primaryColor,
+                                          fontSize: 16),
                                     ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.delete),
-                                      color: Theme.of(context).primaryColor,
-                                      tooltip: 'Delete',
-                                      onPressed: () {
-                                        print("Delete clicked");
-                                      },
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    )
-                                  ],
-                                ),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                            UpdateMeeting(meeting: this.widget,)),
+                                      );
+                                    },
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.delete),
+                                    color: Theme.of(context).primaryColor,
+                                    tooltip: 'Delete',
+                                    onPressed: () {
+                                      DatabaseService().deleteMeeting(widget.eventId , widget.id);
+                                    },
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  )
+                                ],
                               )
                             ],
                           ),
                         ),
-                        flex: 8,
                       ),
                     ],
                   ),

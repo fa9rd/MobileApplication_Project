@@ -1,21 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/services/database.dart';
 import 'package:project2/widgets/field.dart';
 import 'package:intl/intl.dart';
+import 'package:project2/widgets/meeting.dart';
 
-class AddNewMeeting extends StatefulWidget {
-  final Key key;
-  final String sv;
-  final String uid;
+class UpdateMeeting extends StatefulWidget {
+  final Meeting meeting;
 
-  AddNewMeeting({this.key, this.sv, this.uid});
+  UpdateMeeting({@required this.meeting});
 
   @override
-  _AddNewMeetingState createState() => _AddNewMeetingState();
+  _UpdateMeetingState createState() => _UpdateMeetingState();
 }
 
-class _AddNewMeetingState extends State<AddNewMeeting> {
+class _UpdateMeetingState extends State<UpdateMeeting> {
   final _formKey = GlobalKey<FormState>();
+
 
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedStartTime = TimeOfDay.now();
@@ -35,10 +36,10 @@ class _AddNewMeetingState extends State<AddNewMeeting> {
       firstDate: DateTime(2020),
       lastDate: DateTime(2050),
     );
-    if (picked != null && picked != selectedDate) {
+    if (picked != null ) {
       setState(() {
         selectedDate = picked;
-        _textControllerDate.text = DateFormat.yMMMMd().format(selectedDate);
+        _textControllerDate.text = DateFormat.yMMMMd().format(selectedDate).toString();
         print("date ${_textControllerDate.text}");
       });
     }
@@ -49,7 +50,7 @@ class _AddNewMeetingState extends State<AddNewMeeting> {
       context: context,
       initialTime: selectedStartTime,
     );
-    if (picked != null && picked != selectedStartTime) {
+    if (picked != null  ) {
       setState(() {
         selectedStartTime = picked;
         _textControllerStartTime.text = selectedStartTime.format(context);
@@ -66,7 +67,7 @@ class _AddNewMeetingState extends State<AddNewMeeting> {
       context: context,
       initialTime: selectedEndTime,
     );
-    if (picked != null && picked != selectedEndTime) {
+    if (picked != null ) {
       setState(() {
         selectedEndTime = picked;
         _textControllerEndTime.text = selectedEndTime.format(context);
@@ -78,6 +79,23 @@ class _AddNewMeetingState extends State<AddNewMeeting> {
     }
   }
 
+  @override
+  void initState() {
+    DateTime startTime = widget.meeting.nextMeetingStart.toDate();
+    DateTime endTime = widget.meeting.nextMeetingEnd.toDate();
+
+    selectedStartTime = TimeOfDay.fromDateTime(startTime);
+    selectedEndTime = TimeOfDay.fromDateTime(endTime);
+    String dateString = DateFormat.yMMMMd().format(startTime);
+    String startString = DateFormat.jm().format(startTime);
+    String endString = DateFormat.jm().format(endTime);
+     _title = TextEditingController(text: widget.meeting.title);
+     _notes = TextEditingController(text: widget.meeting.notes);
+     _progress = TextEditingController(text: widget.meeting.progress);
+     _textControllerDate =  TextEditingController(text:dateString);
+     _textControllerStartTime =  TextEditingController(text:startString);
+     _textControllerEndTime =  TextEditingController(text:endString);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,7 +169,7 @@ class _AddNewMeetingState extends State<AddNewMeeting> {
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           borderSide:
-                              BorderSide(color: Colors.redAccent, width: 2),
+                          BorderSide(color: Colors.redAccent, width: 2),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -226,7 +244,7 @@ class _AddNewMeetingState extends State<AddNewMeeting> {
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           borderSide:
-                              BorderSide(color: Colors.redAccent, width: 2),
+                          BorderSide(color: Colors.redAccent, width: 2),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -301,7 +319,7 @@ class _AddNewMeetingState extends State<AddNewMeeting> {
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           borderSide:
-                              BorderSide(color: Colors.redAccent, width: 2),
+                          BorderSide(color: Colors.redAccent, width: 2),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -357,14 +375,16 @@ class _AddNewMeetingState extends State<AddNewMeeting> {
                               print(
                                   'End Time: ${DateTime.fromMillisecondsSinceEpoch(endTimeInEpoch)}');
 
-                              await DatabaseService().addMeeting(
-                                  sid: widget.uid.toString(),
+                              await DatabaseService().updateMeeting(
+                                  sid: widget.meeting.studentId,
+                                  docid: widget.meeting.id,
+                                  evid:widget.meeting.eventId,
                                   title :_title.text.toString(),
                                   notes: _notes.text.toString(),
                                   progress: _progress.text.toString(),
                                   startTime:
-                                      DateTime.fromMillisecondsSinceEpoch(
-                                          startTimeInEpoch),
+                                  DateTime.fromMillisecondsSinceEpoch(
+                                      startTimeInEpoch),
                                   endTime: DateTime.fromMillisecondsSinceEpoch(
                                       endTimeInEpoch));
                             }
@@ -379,7 +399,7 @@ class _AddNewMeetingState extends State<AddNewMeeting> {
                           height: 50,
                           child: Center(
                             child: Text(
-                              "Add Meeting",
+                              "Update Meeting",
                               style: TextStyle(
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,

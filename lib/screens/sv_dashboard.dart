@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:project2/screens/Oldstudents.dart';
+import 'package:project2/services/database.dart';
 import './none.dart';
 
 class SvDashboard extends StatefulWidget {
@@ -29,7 +30,8 @@ class _SvDashboardState extends State<SvDashboard> {
                 tooltip: 'Logout',
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
-                  GoogleSignIn().signOut();
+                  DatabaseService().handleSignOut();
+
                 },
               ),
 

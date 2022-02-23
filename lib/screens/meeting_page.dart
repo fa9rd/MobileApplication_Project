@@ -16,16 +16,17 @@ class MeetingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(20,30,20, 5),
+        padding: EdgeInsets.fromLTRB(20, 30, 20, 5),
         child: Column(
-
           children: [
             StreamBuilder(
               stream: FirebaseFirestore.instance
-                  .collection("meetings").where("studentId", isEqualTo: uid)
+                  .collection("meetings")
+                  .where("studentId", isEqualTo: uid)
                   .snapshots(),
               builder: (ctx, meetingsSnapshot) {
-                if (meetingsSnapshot.connectionState == ConnectionState.waiting) {
+                if (meetingsSnapshot.connectionState ==
+                    ConnectionState.waiting) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
@@ -35,16 +36,17 @@ class MeetingsPage extends StatelessWidget {
                 return ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-
                   itemCount: meetings.length,
                   itemBuilder: (ctx, index) => Meeting(
-                    key: ValueKey(meetings[index].id),
-                    studentId: meetings[index]['studentId'],
-                    notes: meetings[index]['notes'],
-                    progress: meetings[index]['progress'],
-                    dateTime: meetings[index]['dateTime'],
-                    nextMeeting: meetings[index]['nextMeetingStart']
-                  ),
+                      id: meetings[index].id,
+                      eventId:meetings[index]['eventId'],
+                      title: meetings[index]['title'],
+                      studentId: meetings[index]['studentId'],
+                      notes: meetings[index]['notes'],
+                      progress: meetings[index]['progress'],
+                      dateTime: meetings[index]['dateTime'],
+                      nextMeetingStart: meetings[index]['nextMeetingStart'],
+                      nextMeetingEnd: meetings[index]['nextMeetingEnd']),
                 );
               },
             ),

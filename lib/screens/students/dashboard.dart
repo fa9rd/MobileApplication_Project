@@ -41,7 +41,8 @@ class _DashboardState extends State<Dashboard> {
           centerTitle: true,
         ),
         body: Center(
-          child: Column(
+          child: ListView(
+            shrinkWrap: true,
             children: [
               Padding(
                   padding: EdgeInsets.fromLTRB(20, 10, 20, 20),

@@ -1,10 +1,15 @@
 // ignore_for_file: sdk_version_ui_as_code
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:comment_box/comment/comment.dart';
+import 'package:project2/services/database.dart';
+import 'package:project2/widgets/comment.dart';
+import 'package:project2/widgets/meeting.dart';
 
 class SingleMeetingPage extends StatefulWidget {
-  const SingleMeetingPage({Key key}) : super(key: key);
+  final Meeting meeting;
+  const SingleMeetingPage({this.meeting});
 
   @override
   _SingleMeetingPageState createState() => _SingleMeetingPageState();
@@ -17,36 +22,206 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
     {'name': '', 'pic': '', 'message': ''},
   ];
 
+  Widget details(){
+   return Padding(
+     padding: const EdgeInsets.all(10),
+     child: Card(
+        elevation: 5,
+        child: Column(
+          children: [
+
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Notes',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.amberAccent[200],
+
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                Text(
+                  '${widget.meeting.notes}',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.w200,
+                  ),
+                ),
+
+
+              ],
+            ),
+
+            SizedBox(height: 10),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Progress',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.amberAccent[200],
+
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                Text(
+                  '${widget.meeting.progress}',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontWeight: FontWeight.w200,
+                  ),
+                ),
+
+
+              ],
+            ),
+
+            SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Next Meeting',
+                textAlign: TextAlign.left,
+                style: TextStyle(
+                  color: Colors.amberAccent[200],
+
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    'Date : ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.amberAccent[200],
+
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    '${widget.meeting.nextMeetingStart.toDate().day}/${widget.meeting.nextMeetingStart.toDate().month}/${widget.meeting.nextMeetingStart.toDate().year}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 10, 1, 20),
+                  child: Text(
+                    'From : ',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Colors.amberAccent[200],
+
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 10, 1, 20),
+                  child: Text(
+                    '${widget.meeting.nextMeetingStart.toDate().hour} : ${widget.meeting.nextMeetingStart.toDate().minute}',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(70, 8, 8, 20),
+                  child: Text(
+                    'To : ',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.amberAccent[200],
+
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(2, 8, 20, 20),
+                  child: Text(
+                    '${widget.meeting.nextMeetingEnd.toDate().hour} : ${widget.meeting.nextMeetingEnd.toDate().minute}',
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+
+              ],
+            ),
+          ],
+        ),
+      ),
+   );
+  }
   Widget commentChild(data) {
     return ListView(
       children: [
-        for (var i = 0; i < data.length; i++)
-          Padding(
-            padding: const EdgeInsets.fromLTRB(2.0, 8.0, 2.0, 0.0),
-            child: ListTile(
-              leading: GestureDetector(
-                onTap: () async {
-                  // Display the image in large form.
-                  print("Comment Clicked");
-                },
-                child: Container(
-                  height: 50.0,
-                  width: 50.0,
-                  decoration: new BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: new BorderRadius.all(Radius.circular(50))),
-                  child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: NetworkImage(data[i]['pic'] + "$i")),
-                ),
+        details(),
+        StreamBuilder(
+          stream: DatabaseService().getComments(widget.meeting.id),
+          builder: (ctx, studentsSnapshot) {
+            if (studentsSnapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final comments = studentsSnapshot.data.docs;
+
+            return ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: comments.length,
+              itemBuilder: (ctx, index) => Comment(
+                StudentName: comments[index]['StudentName'],
+                text: comments[index]['text'],
               ),
-              title: Text(
-                data[i]['name'],
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text(data[i]['message']),
-            ),
-          )
+            );
+          },
+        ),
       ],
     );
   }
@@ -55,8 +230,8 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Meeting 1"),
-        backgroundColor: Theme.of(context).backgroundColor,
+        title: Text("${widget.meeting.title}"),
+        backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
       ),
       body: CommentBox(
@@ -69,15 +244,7 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
         sendButtonMethod: () {
           if (formKey.currentState.validate()) {
             print(commentController.text);
-            setState(() {
-              var value = {
-                'name': 'New User',
-                'pic':
-                    'https://lh3.googleusercontent.com/a-/AOh14GjRHcaendrf6gU5fPIVd8GIl1OgblrMMvGUoCBj4g=s400',
-                'message': commentController.text
-              };
-              filedata.insert(0, value);
-            });
+            DatabaseService().addComment(sid: FirebaseAuth.instance.currentUser.uid, mid: widget.meeting.id, text: commentController.text.toString());
             commentController.clear();
             FocusScope.of(context).unfocus();
           } else {

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/screens/Supervisors/SingleStudentMeetings.dart';
 import 'package:project2/screens/meeting_page.dart';
+import 'package:project2/screens/profile.dart';
 import 'package:project2/services/database.dart';
 
 class Student extends StatelessWidget {
@@ -69,7 +70,8 @@ class Student extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => SingleStudentMeetings(
+                                        builder: (context) =>
+                                            SingleStudentMeetings(
                                               sv: DatabaseService().user.uid,
                                               uid: uid,
                                               name: name,
@@ -86,15 +88,12 @@ class Student extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => SingleStudentMeetings(
-                                          sv: DatabaseService().user.uid,
-                                          uid: uid,
-                                          name: name,
-                                        )),
-                                  );
-
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Profile(
+                                          sid: uid,
+                                        ),
+                                      ));
                                 },
                               ),
                               SizedBox(
