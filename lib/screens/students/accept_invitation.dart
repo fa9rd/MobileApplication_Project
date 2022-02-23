@@ -91,7 +91,7 @@ class _AcceptSupervisorInvitationState
                   child: GestureDetector(
                     onTap: ()  {
                       FirebaseAuth.instance.signOut();
-                      GoogleSignIn().signOut();
+                      DatabaseService().handleSignOut();
                     },
                     child: Container(
                       decoration: BoxDecoration(

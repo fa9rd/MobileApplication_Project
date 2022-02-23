@@ -31,7 +31,7 @@ class _SvDashboardState extends State<SvDashboard> {
                 tooltip: 'Logout',
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
-                  GoogleSignIn().signOut();
+                  DatabaseService().handleSignOut();
                 },
               ),
 
