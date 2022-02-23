@@ -20,20 +20,20 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: Text('Profile'),
         centerTitle: true,
-        backgroundColor: Colors.grey[850],
+        backgroundColor: Theme.of(context).primaryColor,
         elevation: 2.0,
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Text('Edit'),
-        backgroundColor: Colors.tealAccent[700],
-        onPressed: () {
-          print('edit');
-        },
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Text('Edit'),
+      //   backgroundColor: Colors.tealAccent[700],
+      //   onPressed: () {
+      //     print('edit');
+      //   },
+      // ),
       body: FutureBuilder<DocumentSnapshot>(
           future: users.doc(widget.sid).get(),
           builder:
@@ -59,12 +59,13 @@ class _ProfileState extends State<Profile> {
                     ),
                     Divider(
                       height: 50,
-                      color: Colors.white70,
+                      color: Colors.black54,
                     ),
                     Text(
                       'NAME',
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.grey[700],
+                        fontWeight: FontWeight.bold,
                         letterSpacing: 2,
                       ),
                     ),
@@ -72,7 +73,7 @@ class _ProfileState extends State<Profile> {
                     Text(
                       '${data['name']}',
                       style: TextStyle(
-                        color: Colors.amberAccent[200],
+                        color: Colors.deepPurple,
                         letterSpacing: 2,
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -82,7 +83,8 @@ class _ProfileState extends State<Profile> {
                     Text(
                       'Wechat ID',
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Colors.grey[700],
+                        fontWeight: FontWeight.bold,
                         letterSpacing: 2,
                       ),
                     ),
@@ -90,7 +92,7 @@ class _ProfileState extends State<Profile> {
                     Text(
                       '${data['wechat']}',
                       style: TextStyle(
-                        color: Colors.amberAccent[200],
+                        color: Colors.deepPurple,
                         letterSpacing: 2,
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -101,12 +103,12 @@ class _ProfileState extends State<Profile> {
                       onTap: () =>  launch("mailto:${data['email']}"),
                       child: Row(
                         children: [
-                          Icon(Icons.mail, color: Colors.tealAccent),
+                          Icon(Icons.mail, color: Colors.black),
                           SizedBox(width: 10),
                           Text(
                             '${data['email']}',
                             style: TextStyle(
-                              color: Colors.amberAccent[200],
+                              color: Colors.deepPurple,
                               fontSize: 18,
                               letterSpacing: 1,
                             ),
@@ -119,12 +121,12 @@ class _ProfileState extends State<Profile> {
                       onTap: () =>  launch("tel://+60${data['phone']}"),
                       child: Row(
                         children: [
-                          Icon(Icons.phone_android, color: Colors.tealAccent),
+                          Icon(Icons.phone_android, color: Colors.black),
                           SizedBox(width: 10),
                           Text(
                             '+60${data['phone']}',
                             style: TextStyle(
-                              color: Colors.amberAccent[200],
+                              color: Colors.deepPurple,
                               fontSize: 18,
                               letterSpacing: 1,
                             ),
@@ -137,12 +139,12 @@ class _ProfileState extends State<Profile> {
                       onTap: () =>  launch("https://wa.me/${data['phone']}"),
                       child: Row(
                         children: [
-                          Icon(Icons.chat, color: Colors.tealAccent),
+                          Icon(Icons.chat, color: Colors.black),
                           SizedBox(width: 10),
                           Text(
                             '+60${data['phone']}',
                             style: TextStyle(
-                              color: Colors.amberAccent[200],
+                              color: Colors.deepPurple,
                               fontSize: 18,
                               letterSpacing: 1,
                             ),

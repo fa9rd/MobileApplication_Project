@@ -32,7 +32,7 @@ class _CommentState extends State<Comment> {
                 borderRadius: new BorderRadius.all(Radius.circular(50))),
             child: CircleAvatar(
                 radius: 50,
-                backgroundImage: NetworkImage("")),
+                backgroundImage: NetworkImage("https://lh3.googleusercontent.com/a-/AOh14GjRHcaendrf6gU5fPIVd8GIl1OgblrMMvGUoCBj4g=s400")),
           ),
         ),
         title: Text(
