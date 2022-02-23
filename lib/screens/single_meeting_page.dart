@@ -9,7 +9,9 @@ import 'package:project2/widgets/meeting.dart';
 
 class SingleMeetingPage extends StatefulWidget {
   final Meeting meeting;
-  const SingleMeetingPage({this.meeting});
+  final bool isSv;
+
+  const SingleMeetingPage({this.meeting, this.isSv});
 
   @override
   _SingleMeetingPageState createState() => _SingleMeetingPageState();
@@ -22,14 +24,13 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
     {'name': '', 'pic': '', 'message': ''},
   ];
 
-  Widget details(){
-   return Padding(
-     padding: const EdgeInsets.all(10),
-     child: Card(
+  Widget details() {
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Card(
         elevation: 5,
         child: Column(
           children: [
-
             Row(
               children: [
                 Padding(
@@ -39,13 +40,11 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Colors.amberAccent[200],
-
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-
                 Text(
                   '${widget.meeting.notes}',
                   style: TextStyle(
@@ -53,11 +52,8 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                     fontWeight: FontWeight.w200,
                   ),
                 ),
-
-
               ],
             ),
-
             SizedBox(height: 10),
             Row(
               children: [
@@ -68,13 +64,11 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Colors.amberAccent[200],
-
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-
                 Text(
                   '${widget.meeting.progress}',
                   style: TextStyle(
@@ -82,11 +76,8 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                     fontWeight: FontWeight.w200,
                   ),
                 ),
-
-
               ],
             ),
-
             SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -95,7 +86,6 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   color: Colors.amberAccent[200],
-
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -113,7 +103,6 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.amberAccent[200],
-
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -126,7 +115,6 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
-
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -143,7 +131,6 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Colors.amberAccent[200],
-
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -156,13 +143,11 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
-
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.fromLTRB(70, 8, 8, 20),
                   child: Text(
@@ -170,7 +155,6 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.amberAccent[200],
-
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
@@ -183,21 +167,20 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Theme.of(context).primaryColor,
-
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-
               ],
             ),
           ],
         ),
       ),
-   );
+    );
   }
-  Widget commentChild(data) {
+
+  Widget commentChild() {
     return ListView(
       children: [
         details(),
@@ -228,35 +211,44 @@ class _SingleMeetingPageState extends State<SingleMeetingPage> {
 
   @override
   Widget build(BuildContext context) {
+    String uid = FirebaseAuth.instance.currentUser.uid;
+    print('sv is : ');
     return Scaffold(
-      appBar: AppBar(
-        title: Text("${widget.meeting.title}"),
-        backgroundColor: Theme.of(context).primaryColor,
-        centerTitle: true,
-      ),
-      body: CommentBox(
-        userImage:
-            "https://lh3.googleusercontent.com/a-/AOh14GjRHcaendrf6gU5fPIVd8GIl1OgblrMMvGUoCBj4g=s400",
-        child: commentChild(filedata),
-        labelText: 'Write a comment...',
-        withBorder: false,
-        errorText: 'Comment cannot be blank',
-        sendButtonMethod: () {
-          if (formKey.currentState.validate()) {
-            print(commentController.text);
-            DatabaseService().addComment(sid: FirebaseAuth.instance.currentUser.uid, mid: widget.meeting.id, text: commentController.text.toString());
-            commentController.clear();
-            FocusScope.of(context).unfocus();
-          } else {
-            print("Not validated");
-          }
-        },
-        formKey: formKey,
-        commentController: commentController,
-        backgroundColor: Colors.black,
-        textColor: Colors.white,
-        sendWidget: Icon(Icons.send_sharp, size: 30, color: Colors.white),
-      ),
-    );
+        appBar: AppBar(
+          title: Text("${widget.meeting.title}"),
+          backgroundColor: Theme.of(context).primaryColor,
+          centerTitle: true,
+        ),
+        body: widget.isSv
+            ? Container(
+                child: commentChild(),
+              )
+            : CommentBox(
+                child: commentChild(),
+                userImage:
+                    "https://lh3.googleusercontent.com/a-/AOh14GjRHcaendrf6gU5fPIVd8GIl1OgblrMMvGUoCBj4g=s400",
+                labelText: 'Write a comment...',
+                withBorder: false,
+                errorText: 'Comment cannot be blank',
+                sendButtonMethod: () {
+                  if (formKey.currentState.validate()) {
+                    print(commentController.text);
+                    DatabaseService().addComment(
+                        sid: uid,
+                        mid: widget.meeting.id,
+                        text: commentController.text.toString());
+                    commentController.clear();
+                    FocusScope.of(context).unfocus();
+                  } else {
+                    print("Not validated");
+                  }
+                },
+                formKey: formKey,
+                commentController: commentController,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                sendWidget:
+                    Icon(Icons.send_sharp, size: 30, color: Colors.white),
+              ));
   }
 }

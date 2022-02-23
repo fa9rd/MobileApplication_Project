@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:project2/services/database.dart';
 import '../single_meeting_page.dart';
 import '../complete_signup.dart';
 import 'accept_invitation.dart';
@@ -33,7 +34,7 @@ class _DashboardState extends State<Dashboard> {
               tooltip: 'Logout',
               onPressed: () {
                 FirebaseAuth.instance.signOut();
-                GoogleSignIn().signOut();
+                DatabaseService().handleSignOut();
               },
             ),
           ],

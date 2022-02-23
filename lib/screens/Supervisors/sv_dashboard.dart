@@ -50,22 +50,34 @@ class _SvDashboardState extends State<SvDashboard> {
                       child: InkWell(
                         onTap: (){
                           Clipboard.setData(ClipboardData(text: widget.code));
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text("Invitation Code is copied Successfully!"),
+                          ));
                         },
-                        child: Card(
-                          elevation: 1,
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(30,10,30,10),
-                            child: Center(
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      child: Text(widget.code),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Card(
+                            elevation: 3,
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(30,10,30,10),
+                              child: Center(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(
+                                        child: Text(widget.code, style: TextStyle(
+                                          color: Theme.of(context).primaryColor,
+                                          fontWeight: FontWeight.bold
+                                        ),),
+                                      ),
+
                                     ),
-                                  ),
-                                  Icon(Icons.copy),
-                                ],
+                                    SizedBox(width: 70,),
+                                    Icon(Icons.copy , color: Theme.of(context).primaryColor,),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

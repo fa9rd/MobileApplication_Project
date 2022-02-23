@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project2/screens/Supervisors/update_meeting.dart';
 import 'package:project2/screens/single_meeting_page.dart';
@@ -17,6 +18,7 @@ class Meeting extends StatefulWidget {
   final Timestamp nextMeetingStart;
   final Timestamp nextMeetingEnd;
 
+
   @override
   _MeetingState createState() => _MeetingState();
 }
@@ -25,6 +27,8 @@ class _MeetingState extends State<Meeting> {
 
   @override
   Widget build(BuildContext context) {
+    var isSv;
+    FirebaseAuth.instance.currentUser.uid == widget.studentId ? isSv=false : isSv=true;
     return Container(
       margin: EdgeInsets.fromLTRB(15,8,15,8),
       child: Column(
@@ -47,7 +51,7 @@ class _MeetingState extends State<Meeting> {
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            SingleMeetingPage(meeting: this.widget,)),
+                            SingleMeetingPage(meeting: this.widget, isSv:isSv)),
                   );
 
               },
@@ -80,7 +84,8 @@ class _MeetingState extends State<Meeting> {
                               SizedBox(
                                 height: 10,
                               ),
-                              Row(
+                              isSv?
+                                Row(
                                 mainAxisAlignment:
                                 MainAxisAlignment.end,
                                 children: [
@@ -115,7 +120,7 @@ class _MeetingState extends State<Meeting> {
                                     width: 8,
                                   )
                                 ],
-                              )
+                              ):Row()
                             ],
                           ),
                         ),

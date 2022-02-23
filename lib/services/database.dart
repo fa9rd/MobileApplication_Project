@@ -49,22 +49,6 @@ class DatabaseService {
   String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
       length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
-  // Future<Function> Close() async {
-  //   var _clientID = new ClientId(
-  //       "323266625944-eh81r1e1107lorcaveu52rdo419thunc.apps.googleusercontent.com");
-  //   const _scopes = const [CalendarApi.calendarScope];
-  //   await clientViaUserConsent(_clientID, _scopes, prompt).then((
-  //       AuthClient client) async {
-  //     client.close();
-  //   });
-  // }
-// Future<Function> signForClander() async {
-//   var _clientID = new ClientId("323266625944-eh81r1e1107lorcaveu52rdo419thunc.apps.googleusercontent.com");
-//   const _scopes = const [CalendarApi.calendarScope];
-//   await clientViaUserConsent(_clientID, _scopes, prompt).then((AuthClient client) async {
-//     return await CalendarApi(client);
-//   });
-// }
 
   signInWithGoogle3() async {
     await _googleSignIn.signIn();
@@ -93,16 +77,7 @@ class DatabaseService {
   Future<void> handleSignOut() async {
     return _googleSignIn.disconnect();
   }
-  // String getUserData()  {
-  //   Future<DocumentSnapshot<Object>>  theUser =  UserCollection.doc(uid).get();
-  //   Map<String, dynamic> tdata;
-  //     var thedata = theUser.asStream().map((event) => tdata['name'] = event.get("name"));
-  //
-  //     String value  = tdata.values..toString() ; // <-- The value you want to retrieve.
-  //     return value.toString();
-  //
-  //
-  // }
+
 
   Future updateUserData(
       {@required String phone,
@@ -417,5 +392,17 @@ Future addComment({
     'dateTime': DateTime.now()
   });
 
+}
+
+checkUserType() async {
+  var userType = await FirebaseFirestore.instance
+      .collection('users')
+      .doc(uid)
+      .get()
+      .then((value) {
+    print("UserType is  : ${value.data()['userType']}");
+    return value.data()['userType'].toString(); // Access your after your get the data
+  });
+  return userType;
 }
 }

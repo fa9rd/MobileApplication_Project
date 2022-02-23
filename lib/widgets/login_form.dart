@@ -243,7 +243,6 @@ class _LoginFormState extends State<LoginForm> {
                                                       ),
                                                       onPressed:(){
                                                         DatabaseService().signInWithGoogle();
-                                                        return CheckUser();
                                                       },
 
                                                     ),
