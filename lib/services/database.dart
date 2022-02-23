@@ -8,7 +8,6 @@ import 'package:project2/models/meeting_data.dart';
 import 'package:project2/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:googleapis/calendar/v3.dart';
-import 'package:project2/services/httpClient.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:extension_google_sign_in_as_googleapis_auth/extension_google_sign_in_as_googleapis_auth.dart';
 import 'package:googleapis_auth/googleapis_auth.dart' as auth show AuthClient;
